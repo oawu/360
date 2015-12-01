@@ -172,7 +172,6 @@
  * ------------------------------------------------------
  */
 	$RTR =& load_class('Router', 'core');
-	$RTR->_set_routing();
 
 	// Set any routing overrides that may exist in the main index file
 	if (isset($routing))
