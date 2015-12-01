@@ -29,7 +29,7 @@ class Admin_controller extends Oa_controller {
   }
 
   private function _add_css () {
-    return $this;
+    return $this->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'nav', 'content.css'));
   }
 
   private function _add_js () {

@@ -12,7 +12,12 @@
   </head>
   <body lang="zh-tw">
     <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
-
-    <?php echo isset ($content) ? $content : ''; ?>
+    <?php echo render_cell ('frame_cell', 'nav');?>
+    <div id='container'>
+<?php if ($_flash_message = Session::getData ('_flash_message', true)) { ?>
+        <div class='_m'><?php echo $_flash_message;?></div>
+<?php }?>
+      <?php echo isset ($content) ? $content : ''; ?>
+    </div>
   </body>
 </html>

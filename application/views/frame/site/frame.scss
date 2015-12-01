@@ -7,6 +7,38 @@
 
 html {
   body {
+    #container {
+      padding-top: 5px !important;
+    }
+  }
+}
+$msgHeight: 40px;
+._m {
+  @include alert('info');
+  position: fixed;
+  top: -$msgHeight;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: $msgHeight;
+  padding: 10px;
+  border-right: 0;
+  border-left: 0;
+  background-color: rgba(217, 237, 247, .65);
+  z-index: 997;
 
+  @include background-image(radial-gradient(50% 50%, rgba(217, 237, 247, 1) 0px, rgba(255, 255, 255, 0) 100%));
+  background-repeat: no-repeat;
+  background-position: 50% 5px;
+
+  @include border-radius(0);
+  @include opacity(0);
+  @include animation(_m_s 5s);
+  @include keyframes(_m_s){
+    0% { top: -$msgHeight; @include opacity(0); }
+    5% { top: -$msgHeight; @include opacity(0); }
+    15% { top: 0 + $msgHeight - 5px; @include opacity(1); }
+    90% { top: 0 + $msgHeight - 5px; @include opacity(1); }
+    100% { top: -$msgHeight; @include opacity(0); }
   }
 }

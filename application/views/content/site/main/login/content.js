@@ -4,5 +4,4 @@
  */
 
 $(function () {
-  $('.i_c').imgLiquid ({verticalAlign: 'center'});
 });
