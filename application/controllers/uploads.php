@@ -7,6 +7,14 @@
 
 class Uploads extends Site_controller {
 
+  public function __construct () {
+    parent::__construct ();
+    if (Session::getData ('user') !== 'oa')
+      return redirect_message (array ('login'), array (
+          '_flash_message' => '請先登入！'
+        ));
+  }
+
   public function upload () {
     if (!$this->has_post ())
       return $this->output_json (array ('status' => false));
