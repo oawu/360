@@ -1,1 +1,1 @@
-.theta-viewer{width:500px;height:500px;border:1px solid rgba(255,0,0,0.3)}
+.theta-viewer{position:relative;width:500px;height:500px;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;overflow:hidden;-moz-box-shadow:0 0 10px rgba(39,40,34,0.5);-webkit-box-shadow:0 0 10px rgba(39,40,34,0.5);box-shadow:0 0 10px rgba(39,40,34,0.5);cursor:move}

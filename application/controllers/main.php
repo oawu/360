@@ -21,6 +21,10 @@ class Main extends Site_controller {
   }
   public function index () {
     return $this
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
                 ->load_view (array (
                   ));
   }

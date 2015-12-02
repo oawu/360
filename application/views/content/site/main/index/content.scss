@@ -4,124 +4,43 @@
  */
 
 @import "_oa";
-
+#container {
+  padding: 0 !important;
+}
 .ps {
   position: relative;
+  display: inline-block;
   display: block;
   padding: 0;
+  padding-top: 20px;
   @include clearfix();
 
   > div {
-    font-size: 15px;
-  }
-  figure {
-    float: left;
     position: relative;
+    float: left;
     display: inline-block;
-    width: 100px;
-    height: 100px;
+    width: 360px;
+    height: 360px;
+    margin: 20px;
     overflow: hidden;
-    margin: 0;
-    z-index: 2;
-    cursor: pointer;
-    @include border-radius(2px);
-
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: inline-block;
-      z-index: 3;
-      @include background-image(
-              linear-gradient(top, 
-                      rgba(39, 40, 34, 0) 0%,
-                      rgba(39, 40, 34, .2) 50%,
-                      rgba(39, 40, 34, .3) 60%,
-                      rgba(39, 40, 34, .7) 100%
-              ));
-    }
-    a {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-
-    }
-    figcaption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 5px;
-      z-index: 10;
-      color: rgba(230, 230, 230, 1);
-      font-size: 16px;
-      @include transition(all .3s);
-      @include overflow-docx3();
-    }
+    @include border-radius(50%);
+    @include box-shadow(0 0 10px rgba(39, 40, 34, .5), 1px 1px 3px rgba(39, 40, 34, .5));
   }
-}
+  $layouts: (
+    (0, 400px, 1, 20px),
+    (400px, 700px, 2, 20px),
+    (700px, 1200px, 3, 20px),
+    (1200px, 9000px, 4, 20px),
+  );
+  @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+    padding-top: 10px;
+  }
 
-
-$layouts: (
-  (0, 325px, 1, 200px, 3px),
-  (325px, 370px, 1, 220px, 3px),
-  (370px, 410px, 2, 140px, 5px),
-  (410px, 525px, 2, 160px, 5px),
-  (525px, 630px, 2, 190px, 5px),
-  (630px, 730px, 2, 210px, 5px),
-  (730px, 830px, 3, 170px, 5px),
-  (830px, 1040px, 3, 200px, 5px),
-  (1040px, 1090px, 4, 200px, 5px),
-  (1090px, 1185px, 4, 200px, 6px),
-  (1185px, 1280px, 4, 200px, 7px),
-  (1280px, 0, 4, 220px, 7px),
-);
-@each $layout in $layouts {
-  @if(nth($layout, 2) != 0) {
+  @each $layout in $layouts {
     @media screen and (min-width: #{nth($layout, 1)}) and (max-width: #{nth($layout, 2) - 1px}) {
-      $column: nth($layout, 3);
-      $height: nth($layout, 4);
-      $margin: nth($layout, 5);
-
-      .ps {
-        figure {
-          width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
-          height: $height;
-          margin: $margin;
-
-          &:nth-child(#{$column}n + 1) {
-            margin-left: 0;
-          }
-          &:nth-child(#{$column}n) {
-            margin-right: 0;
-          }
-        }
-      }
-    }
-  } @else {
-    @media screen and (min-width: #{nth($layout, 1)}) {
-      $column: nth($layout, 3);
-      $height: nth($layout, 4);
-      $margin: nth($layout, 5);
-
-      .ps {
-        figure {
-          width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
-          height: $height;
-          margin: $margin;
-
-          &:nth-child(#{$column}n + 1) {
-            margin-left: 0;
-          }
-          &:nth-child(#{$column}n) {
-            margin-right: 0;
-          }
-        }
+      > div {
+        margin: nth($layout, 4);
+        width: calc(100% / #{nth($layout, 3)} - #{nth($layout, 4) * 2});
       }
     }
   }
