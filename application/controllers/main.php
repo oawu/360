@@ -7,9 +7,20 @@
 
 class Main extends Site_controller {
 
+  public function x () {
+    $pic = Picture::first ();
+    
+    return $this
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
+                ->load_view (array (
+                    'pic' => $pic
+                  ));
+  }
   public function index () {
     return $this
-                ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
                 ->load_view (array (
                   ));
   }
