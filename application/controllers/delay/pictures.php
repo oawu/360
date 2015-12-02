@@ -10,9 +10,9 @@ class Pictures extends Delay_controller {
     if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, name, color_r, color_g, color_b')))))
       return ;
 
+    $picture->update_color ();
+
     foreach ($picture->name->virtualVersions () as $key => $version)
       $picture->name->save_as ($key, $version);
-
-    $picture->update_color ();
   }
 }
