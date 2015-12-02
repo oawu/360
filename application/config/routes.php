@@ -8,3 +8,6 @@ Route::post ('login', 'main@signin');
 Route::delete ('logout', 'main@logout');
 Route::get ('register', 'main@register');
 Route::post ('uploads', 'uploads@upload');
+Route::get ('edit/(:id)', 'uploads@edit($1)');
+Route::put ('/(:id)', 'uploads@update($1)');
+Route::delete ('/(:id)', 'uploads@destroy($1)');

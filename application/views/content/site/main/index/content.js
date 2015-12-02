@@ -10,6 +10,33 @@ $(function () {
     });
   }).resize ();
 
+  $('.edit').click (function () {
+    $.fancybox ({
+        href: $(this).data ('url'),
+        type: 'iframe',
+        padding: 0,
+        margin: 30,
+        width: '100%',
+        maxWidth: '1200',
+    });
+  });
+
+  $('.delete').click (function () {
+    if (confirm ('確定刪除？'))
+      $.ajax ({
+        url: $(this).data ('url'),
+        data: { },
+        async: true, cache: false, dataType: 'json', type: 'delete',
+      })
+      .done (function (result) {
+        if (result.status)
+          location.reload ();
+        else
+          alert (result.message);
+      })
+      .fail (function (result) { ajaxError (result); })
+      .complete (function (result) { });
+  });
 
   if ($('#content_url').val ().length) {
     $.fancybox ({

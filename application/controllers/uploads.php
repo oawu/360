@@ -15,18 +15,72 @@ class Uploads extends Site_controller {
         ));
   }
 
+  public function destroy ($id = 0) {
+    if (!($pic = Picture::find_by_id ($id, array ('select' => 'id, name'))))
+      return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
+    
+    $delete = Picture::transaction (function () use ($pic) {
+      return $pic->destroy ();
+    });
+    
+    if ($delete)
+      return $this->output_json (array ('status' => true, 'message' => '刪除成功！'));
+    else
+      return $this->output_json (array ('status' => false, 'message' => '刪除失敗！'));
+  }
+  public function edit ($id = 0) {
+    $this->set_frame_path ('frame', 'pure');
+
+    if (!($pic = Picture::find_by_id ($id)))
+      return $this->load_view (array (), false);
+    else
+      return $this->add_hidden (array ('id' => 'update_url', 'value' => base_url ($pic->id)))
+                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
+                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
+                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
+                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
+                  ->load_view (array (
+                      'pic' => $pic
+                    ), false);
+  }
+
+  public function update ($id = 0) {
+    if (!($pic = Picture::find_by_id ($id, array ('select' => 'id, x, y, z'))))
+      return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
+    
+    $posts = OAInput::post ('position');
+
+    if ($msg = $this->_validation_position_posts ($posts))
+      return $this->output_json (array ('status' => false, 'message' => $msg));
+
+    if ($columns = array_intersect_key ($posts, $pic->table ()->columns))
+      foreach ($columns as $column => $value)
+        $pic->$column = $value;
+
+    $update = Picture::transaction (function () use ($pic) {
+      if (!$pic->save ())
+        return false;
+      return true;
+    });
+
+    if ($update)
+      return $this->output_json (array ('status' => true, 'message' => '更新成功！'));
+    else
+      return $this->output_json (array ('status' => false, 'message' => '更新失敗！'));
+  }
+
   public function upload () {
     if (!$this->has_post ())
-      return $this->output_json (array ('status' => false));
+      return $this->output_json (array ('status' => false, 'message' => '非 POST 方法，錯誤的頁面請求！'));
 
     if (!($picture = OAInput::file ('picture')))
-      return $this->output_json (array ('status' => false));
+      return $this->output_json (array ('status' => false, 'message' => '上傳檔案失敗！'));
 
     $info = exif_read_data ($picture['tmp_name']);
     $posts = array_merge (OAInput::post (), read_gps_location ($info), array ('made_at' => convertExifToTimestamp ($info)));
 
     if ($msg = $this->_validation_upload_posts ($posts))
-      return $this->output_json (array ('status' => false));
+      return $this->output_json (array ('status' => false, 'message' => $msg));
 
     $create = Picture::transaction (function () use ($posts, $picture) {
       if (!(verifyCreateOrm ($pic = Picture::create (array_intersect_key ($posts, Picture::table ()->columns))) && $pic->name->put ($picture)))
@@ -36,7 +90,18 @@ class Uploads extends Site_controller {
       return true;
     });
 
-    return $this->output_json (array ('status' => $create ? true : false));
+    if ($create)
+      return $this->output_json (array ('status' => true, 'message' => '新增成功！'));
+    else
+      return $this->output_json (array ('status' => false, 'message' => '新增失敗！'));
+  }
+
+  private function _validation_position_posts (&$posts) {
+    if (!(isset ($posts['x']) && is_numeric ($posts['x']))) return '格式錯誤！';
+    if (!(isset ($posts['y']) && is_numeric ($posts['y']))) return '格式錯誤！';
+    if (!(isset ($posts['z']) && is_numeric ($posts['z']))) return '格式錯誤！';
+
+    return '';
   }
   private function _validation_upload_posts (&$posts) {
     if (!isset ($posts['name'])) $posts['name'] = '';

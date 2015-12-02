@@ -5,6 +5,7 @@
 
 $(function () {
   var $ball = $('#ball');
+  var $loading = $('#loading');
   if (!$ball.length) return;
 
   var ball = $ball.get (0);
@@ -20,7 +21,26 @@ $(function () {
       });
   }).resize ();
 
-  ball.viewer = new ThetaViewer (ball, null, $('#ball').data ('position'), $('#ball').data ('color'), true);
+  ball.viewer = new ThetaViewer (ball, function (position) {
+    $.ajax ({
+      url: $('#update_url').val (),
+      data: {
+        position: {
+          x: position.x,
+          y: position.y,
+          z: position.z
+        }
+      },
+      async: true, cache: false, dataType: 'json', type: 'put',
+      beforeSend: function () { $loading.addClass ('s'); }
+    })
+    .done (function (result) {
+      $loading.removeClass ('s');
+    })
+    .fail (function (result) { ajaxError (result); })
+    .complete (function (result) { });
+    
+  }, $('#ball').data ('position'), $('#ball').data ('color'), true);
   ball.viewer.images = [$('#ball').data ('url')];
   ball.viewer.load ();
 

@@ -24,6 +24,9 @@ class Picture extends OaModel {
     OrmImageUploader::bind ('name', 'PictureNameImageUploader');
   }
   
+  public function destroy () {
+    return $this->name->cleanAllFiles () && $this->delete ();
+  }
   public function position () {
     return array (
         'x' => $this->x,

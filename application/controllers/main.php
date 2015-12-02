@@ -7,41 +7,19 @@
 
 class Main extends Site_controller {
 
-  public function x () {
-    $pic = Picture::first ();
-    
-    return $this
-                ->add_hidden (array ('id' => 'content_url', 'value' => base_url ()))
-                ->add_css ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox.css')
-                ->add_css ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.css')
-                ->add_css ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.css')
-                ->add_css ('resource', 'css', 'fancyBox_v2.1.5', 'my.css')
-
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.js'))
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
-
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
-                ->load_view (array (
-                    'pic' => $pic
-                  ));
-  }
   public function content ($id = 0) {
-    if (!($pic = Picture::find_by_id ($id)))
-      return '';
+    $this->set_frame_path ('frame', 'pure');
 
-    return $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
-                ->set_frame_path ('frame', 'pure')
-                ->load_view (array (
-                    'pic' => $pic
-                  ), false);
+    if (!($pic = Picture::find_by_id ($id)))
+      return $this->load_view (array (), false);
+    else
+      return $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
+                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
+                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
+                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
+                  ->load_view (array (
+                      'pic' => $pic
+                    ), false);
   }
   public function index ($id = 0) {
     $pics = Picture::find ('all', array (

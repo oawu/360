@@ -10,4 +10,5 @@
       <div>當案不存在，或者您的權限不夠喔！</div>
     </div>
 <?php
-  }
+  } ?>
+<div id='loading'>更新中..</div>
