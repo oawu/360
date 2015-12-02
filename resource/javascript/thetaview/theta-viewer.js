@@ -2,18 +2,26 @@
   var ThetaViewer;
 
   ThetaViewer = (function() {
-    function ThetaViewer(dom, callback, position, color) {
+    function ThetaViewer(dom, callback, position, color, d) {
       var _oldHeight, _oldWidth;
       this.init = false;
       this.timer = null;
       this.dom = dom;
-      
-      this.__defineGetter__('width', function() {
-        return Math.min (this.dom.clientWidth, this.dom.clientHeight);
-      });
-      this.__defineGetter__('height', function() {
-        return Math.min (this.dom.clientWidth, this.dom.clientHeight);
-      });
+      if (!d) {
+        this.__defineGetter__('width', function() {
+          return Math.min (this.dom.clientWidth, this.dom.clientHeight);
+        });
+        this.__defineGetter__('height', function() {
+          return Math.min (this.dom.clientWidth, this.dom.clientHeight);
+        });
+      } else {
+        this.__defineGetter__('width', function() {
+          return Math.max (this.dom.clientWidth, this.dom.clientHeight);
+        });
+        this.__defineGetter__('height', function() {
+          return Math.max (this.dom.clientWidth, this.dom.clientHeight);
+        });
+      }
       this.images = [];
       this.interval = 1000;
       this.materialOffset = 0;
@@ -27,7 +35,6 @@
       this.dom.appendChild(this.renderer.domElement);
       this.controls = new THREE.OrbitControls(this.camera, dom);
 
-      // this.controls.enabled = false;
       this.controls.addEventListener('change', (function(_this) {
         return function() {
           if (callback) {
