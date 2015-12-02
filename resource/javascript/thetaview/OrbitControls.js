@@ -218,9 +218,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 			dollyScale = getZoomScale();
 
 		}
-
 		scale *= dollyScale;
-
 	};
 
 	this.update = function () {

@@ -7,11 +7,12 @@
       this.init = false;
       this.timer = null;
       this.dom = dom;
+      
       this.__defineGetter__('width', function() {
-        return this.dom.clientWidth;
+        return Math.min (this.dom.clientWidth, this.dom.clientHeight);
       });
       this.__defineGetter__('height', function() {
-        return this.dom.clientHeight;
+        return Math.min (this.dom.clientWidth, this.dom.clientHeight);
       });
       this.images = [];
       this.interval = 1000;
@@ -21,18 +22,23 @@
       this.scene = new THREE.Scene();
       this.renderer = new THREE.WebGLRenderer();
 
-      this.renderer.setClearColor(color ? parseInt (color, 16) : 0xffffff, 1);
+      this.renderer.setClearColor(color ? parseInt (color, 16) : 0xffffff, 0);
       this.renderer.setSize(this.width, this.height);
       this.dom.appendChild(this.renderer.domElement);
-      this.controls = new THREE.OrbitControls(this.camera);
+      this.controls = new THREE.OrbitControls(this.camera, dom);
+
+      // this.controls.enabled = false;
       this.controls.addEventListener('change', (function(_this) {
         return function() {
-          if (!_this.init) {
-            clearTimeout (_this.timer);
-            _this.timer = setTimeout (function () {
-              callback (_this.camera.position);
-            }, 300);
+          if (callback) {
+            if (!_this.init) {
+              clearTimeout (_this.timer);
+              _this.timer = setTimeout (function () {
+                callback (_this.camera.position);
+              }, 300);
+            }
           }
+
           _this.init = false;
           return _this.renderer.render(_this.scene, _this.camera);
         };
@@ -63,8 +69,11 @@
       })(this), 100);
     }
 
+    ThetaViewer.prototype.setEnable = function(enable) {
+      this.controls.enabled = enable;
+    };
     ThetaViewer.prototype.load = function(callback) {
-      if (callback == null) {
+      if (callback) {
         callback = function() {};
       }
       return this.loadMaterials((function(_this) {
