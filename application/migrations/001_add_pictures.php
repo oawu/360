@@ -21,6 +21,8 @@ class Migration_Add_pictures extends CI_Migration {
         `latitude` DOUBLE NOT NULL DEFAULT -1 COMMENT '緯度',
         `longitude` DOUBLE NOT NULL DEFAULT -1 COMMENT '經度',
 
+        `made_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '照片時間',
+
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`)

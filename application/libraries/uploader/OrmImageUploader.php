@@ -23,12 +23,16 @@ class OrmImageUploader extends OrmUploader {
     return $this->configs['d4_url'];
   }
   // return array
+  protected function virtualVersions () {
+    return array ();
+  }
+  // return array
   protected function getVersions () {
     return $this->configs['default_version'];
   }
   // return array
   public function path ($key = '') {
-    if (($versions = ($versions = $this->getVersions ()) ? $versions : $this->configs['default_version']) && isset ($versions[$key]) && ($fileName = $key . $this->configs['separate_symbol'] . $this->getValue ()))
+    if (($versions = ($versions = array_merge ($this->getVersions (), $this->virtualVersions ())) ? $versions : $this->configs['default_version']) && isset ($versions[$key]) && ($fileName = $key . $this->configs['separate_symbol'] . $this->getValue ()))
       return parent::path ($fileName);
     else
       return array ();

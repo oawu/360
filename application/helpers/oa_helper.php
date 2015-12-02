@@ -14,6 +14,17 @@ if (!function_exists ('redirect_message')) {
     return redirect ($uri, 'refresh');
   }
 }
+if (!function_exists ('color_hex')) {
+  function color_hex ($n) {
+    if (!$n = intval ($n))
+      return '00';
+    $n = max (0, min ($n, 255));
+    $i1 = (int) ($n - ($n % 16)) / 16;
+    $i2 = (int) $n % 16;
+
+    return substr ('0123456789ABCDEF', $i1, 1) . substr ('0123456789ABCDEF', $i2, 1);
+  }
+}
 
 if (!function_exists ('conditions')) {
   function conditions (&$columns, &$configs, $model_name, $inputs = null) {
@@ -228,5 +239,56 @@ if ( !function_exists ('make_click_able_links')) {
 if (!function_exists ('url_parse')) {
   function url_parse ($url, $key) {
     return ($url = parse_url ($url)) && isset ($url[$key]) ? $url[$key] : '';
+  }
+}
+if (!function_exists ('read_gps_location')) {
+  function read_gps_location ($info) {
+    if (isset ($info['GPSLatitude']) && isset ($info['GPSLongitude']) && isset ($info['GPSLatitudeRef']) && isset ($info['GPSLongitudeRef']) && in_array ($info['GPSLatitudeRef'], array ('E','W','N','S')) && in_array ($info['GPSLongitudeRef'], array ('E','W','N','S'))) {
+      $GPSLatitudeRef  = strtolower (trim ($info['GPSLatitudeRef']));
+      $GPSLongitudeRef = strtolower (trim ($info['GPSLongitudeRef']));
+
+      $lat_degrees_a = explode ('/',$info['GPSLatitude'][0]);
+      $lat_minutes_a = explode ('/',$info['GPSLatitude'][1]);
+      $lat_seconds_a = explode ('/',$info['GPSLatitude'][2]);
+      $lng_degrees_a = explode ('/',$info['GPSLongitude'][0]);
+      $lng_minutes_a = explode ('/',$info['GPSLongitude'][1]);
+      $lng_seconds_a = explode ('/',$info['GPSLongitude'][2]);
+
+      $lat_degrees = $lat_degrees_a[0] / $lat_degrees_a[1];
+      $lat_minutes = $lat_minutes_a[0] / $lat_minutes_a[1];
+      $lat_seconds = $lat_seconds_a[0] / $lat_seconds_a[1];
+      $lng_degrees = $lng_degrees_a[0] / $lng_degrees_a[1];
+      $lng_minutes = $lng_minutes_a[0] / $lng_minutes_a[1];
+      $lng_seconds = $lng_seconds_a[0] / $lng_seconds_a[1];
+
+      $lat = (float) $lat_degrees + ((($lat_minutes * 60) + ($lat_seconds)) / 3600);
+      $lng = (float) $lng_degrees + ((($lng_minutes * 60) + ($lng_seconds)) / 3600);
+
+      $GPSLatitudeRef  == 's' ? $lat *= -1 : '';
+      $GPSLongitudeRef == 'w' ? $lng *= -1 : '';
+
+      return array (
+        'latitude' => $lat,
+        'longitude' => $lng
+      );
+    }           
+    return array (
+          'latitude' => -1,
+          'longitude' => -1
+        );;
+  }
+}
+
+if (!function_exists ('convertExifToTimestamp')) {
+  function convertExifToTimestamp ($info, $dateFormat = 'Y-m-d H:i:s') {
+    if (!isset ($info['DateTimeOriginal']))
+      return date ($dateFormat);
+
+    $exifPieces = preg_split ('/[\s:]+/', $info['DateTimeOriginal']);
+    
+    if (!((count ($exifPieces) == 6) && isset ($exifPieces[0]) && isset ($exifPieces[1]) && isset ($exifPieces[2]) && isset ($exifPieces[3]) && isset ($exifPieces[4]) && isset ($exifPieces[5])))
+      return date ($dateFormat);
+    
+    return date ($dateFormat, strtotime ($exifPieces[0] . "-" . $exifPieces[1] . "-" . $exifPieces[2] . " " . $exifPieces[3] . ":" . $exifPieces[4] . ":" . $exifPieces[5]));
   }
 }
