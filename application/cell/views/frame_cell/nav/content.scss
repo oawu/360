@@ -20,7 +20,7 @@ nav {
   @include box-shadow(0 5px 5px 2px rgba(39, 40, 34, .1), 0 1px 1px rgba(39, 40, 34, .25));
   @include clearfix();
   
-  ~ div {
+  + div {
     margin-top: $height !important;
   }
   a {
