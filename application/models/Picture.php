@@ -24,6 +24,13 @@ class Picture extends OaModel {
     OrmImageUploader::bind ('name', 'PictureNameImageUploader');
   }
   
+  public function position () {
+    return array (
+        'x' => $this->x,
+        'y' => $this->y,
+        'z' => $this->z,
+      );
+  }
   public function color ($type = 'rgba', $alpha = 1) {
     if (!(isset ($this->color_r) && isset ($this->color_r) && isset ($this->color_g)))
       return '';
