@@ -12,7 +12,7 @@
           <a title='編輯檢視角度' class='icon-pencil2 edit l' data-url='<?php echo base_url ('edit', $pic->token);?>'></a>
           <a title='刪除' class='icon-bin delete l' data-url='<?php echo base_url ($pic->token);?>'></a>
     <?php if ($pic->is_visibled) { ?>
-            <a title='目前公開' class='icon-eye l' href='<?php echo base_url ('eye', $pic->token);?>' data-method='put'></a>
+            <a title='目前公開' class='icon-eye l' href='<?php echo base_url ('eye', $pic->token);?>' data-method='post'></a>
     <?php } else { ?>
             <a title='目前非公開' class='icon-eye-blocked l' href='<?php echo base_url ('eye', $pic->token);?>' data-method='put'></a>
     <?php }?>

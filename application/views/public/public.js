@@ -26,7 +26,7 @@ function uploadCover (url, cover) {
     data: {
       cover: cover
     },
-    async: true, cache: false, dataType: 'json', type: 'put',
+    async: true, cache: false, dataType: 'json', type: 'post',
     beforeSend: function () { }
   })
   .done (function (result) { })

@@ -32,7 +32,7 @@ $(function () {
           z: position.z
         }
       },
-      async: true, cache: false, dataType: 'json', type: 'put',
+      async: true, cache: false, dataType: 'json', type: 'post',
       beforeSend: function () { $loading.addClass ('s'); }
     })
     .done (function (result) {
