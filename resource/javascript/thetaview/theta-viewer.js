@@ -43,7 +43,7 @@
               clearTimeout (_this.timer);
               _this.timer = setTimeout (function () {
                 callback (_this.camera.position);
-              }, 300);
+              }, 500);
             }
           }
 
