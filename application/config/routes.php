@@ -13,6 +13,6 @@ Route::get ('edit/(:any)', 'uploads@edit($1)');
 Route::post ('cover/(:any)', 'main@cover($1)');
 Route::post ('login', 'main@signin');
 Route::post ('uploads', 'uploads@upload');
-Route::post ('eye/(:any)', 'uploads@eye($1)');
+Route::put ('eye/(:any)', 'uploads@eye($1)');
 Route::get ('/(:any)', 'main@index($1)');
 Route::post ('/(:any)', 'uploads@update($1)');
