@@ -16,7 +16,7 @@ class Site_controller extends Oa_controller {
          ->set_content_path ('content', 'site')
          ->set_public_path ('public')
 
-         ->set_title ("OA's CI")
+         ->set_title (Cfg::setting ('site', 'main', 'title'))
 
          ->_add_meta ()
          ->_add_css ()
