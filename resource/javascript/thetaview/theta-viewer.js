@@ -28,7 +28,9 @@
       this.camera = new THREE.PerspectiveCamera(100, this.width / this.height);
       this.camera.position.set(0, 0, 180);
       this.scene = new THREE.Scene();
-      this.renderer = new THREE.WebGLRenderer();
+      this.renderer = new THREE.WebGLRenderer({
+        preserveDrawingBuffer: true
+      });
 
       this.renderer.setClearColor(color ? parseInt (color, 16) : 0xffffff, 0);
       this.renderer.setSize(this.width, this.height);
@@ -82,25 +84,30 @@
       this.controls.enabled = enable;
     };
     ThetaViewer.prototype.load = function(callback) {
-      if (callback) {
+      if (!callback) {
         callback = function() {};
       }
       return this.loadMaterials((function(_this) {
+
         return function() {
           if (_this.running) {
             return;
           }
           _this.running = true;
           _this.displayNextMaterial();
+          callback ();
+
           setInterval(function() {
             return _this.displayNextMaterial();
           }, _this.interval);
+
           if (_this.autoRotate) {
             return setInterval(function() {
               _this.controls.rotateLeft(0.003);
               return _this.controls.update();
             }, 50);
           }
+
         };
       })(this));
     };
