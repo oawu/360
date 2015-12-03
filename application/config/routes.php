@@ -12,7 +12,7 @@ Route::get ('register', 'main@register');
 Route::get ('uploads', 'uploads@index');
 Route::post ('uploads', 'uploads@upload');
 Route::get ('edit/(:any)', 'uploads@edit($1)');
-Route::post ('/(:any)', 'uploads@update($1)');
 Route::post ('eye/(:any)', 'uploads@eye($1)');
 Route::delete ('/(:any)', 'uploads@destroy($1)');
 Route::get ('/(:any)', 'main@index($1)');
+Route::post ('/(:any)', 'uploads@update($1)');
