@@ -2,7 +2,7 @@
   var ThetaViewer;
 
   ThetaViewer = (function() {
-    function ThetaViewer(dom, callback, position, color, d) {
+    function ThetaViewer(dom, callback, position, color, d, distance) {
       var _oldHeight, _oldWidth;
       this.init = false;
       this.timer = null;
@@ -33,8 +33,7 @@
       this.renderer.setClearColor(color ? parseInt (color, 16) : 0xffffff, 0);
       this.renderer.setSize(this.width, this.height);
       this.dom.appendChild(this.renderer.domElement);
-      this.controls = new THREE.OrbitControls(this.camera, dom);
-
+      this.controls = new THREE.OrbitControls(this.camera, dom, distance);
       this.controls.addEventListener('change', (function(_this) {
         return function() {
           if (callback) {
@@ -76,6 +75,9 @@
       })(this), 100);
     }
 
+    ThetaViewer.prototype.distance = function(distance) {
+      this.controls.distance (distance);
+    };
     ThetaViewer.prototype.setEnable = function(enable) {
       this.controls.enabled = enable;
     };

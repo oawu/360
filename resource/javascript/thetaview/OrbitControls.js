@@ -21,7 +21,7 @@
 //      controls.target.z = 150;
 // Simple substitute "OrbitControls" and the control should work as-is.
 
-THREE.OrbitControls = function ( object, domElement ) {
+THREE.OrbitControls = function ( object, domElement, distance ) {
 
 	this.object = object;
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
@@ -44,8 +44,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 	this.zoomSpeed = 1.0;
 
 	// Limits to how far you can dolly in and out
-	this.minDistance = 0;
-	this.maxDistance = Infinity;
+	this.minDistance = distance && distance.min ? distance.min : 0;
+	this.maxDistance = distance && distance.max ? distance.max : 1550;
 
 	// Set to true to disable this control
 	this.noRotate = false;
@@ -68,7 +68,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 	this.noKeys = false;
 
 	// The four arrow keys
-	this.keys = { LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40 };
+	this.keys = {  };
 
 	////////////
 	// internals
@@ -221,6 +221,10 @@ THREE.OrbitControls = function ( object, domElement ) {
 		scale *= dollyScale;
 	};
 
+	this.distance = function (distance) {
+		this.minDistance = distance.max;
+		this.maxDistance = distance.min;
+	};
 	this.update = function () {
 
 		var position = this.object.position;
