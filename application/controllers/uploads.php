@@ -15,8 +15,8 @@ class Uploads extends Site_controller {
         ));
   }
 
-  public function destroy ($id = 0) {
-    if (!($pic = Picture::find_by_id ($id, array ('select' => 'id, name'))))
+  public function destroy ($token = 0) {
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, name'))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
     
     $delete = Picture::transaction (function () use ($pic) {
@@ -28,13 +28,14 @@ class Uploads extends Site_controller {
     else
       return $this->output_json (array ('status' => false, 'message' => '刪除失敗！'));
   }
-  public function edit ($id = 0) {
+
+  public function edit ($token = 0) {
     $this->set_frame_path ('frame', 'pure');
 
-    if (!($pic = Picture::find_by_id ($id)))
+    if (!($pic = Picture::find_by_token ($token)))
       return $this->load_view (array (), false);
     else
-      return $this->add_hidden (array ('id' => 'update_url', 'value' => base_url ($pic->id)))
+      return $this->add_hidden (array ('id' => 'update_url', 'value' => base_url ($pic->token)))
                   ->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
                   ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
                   ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
@@ -44,8 +45,8 @@ class Uploads extends Site_controller {
                     ), false);
   }
 
-  public function update ($id = 0) {
-    if (!($pic = Picture::find_by_id ($id, array ('select' => 'id, x, y, z'))))
+  public function update ($token = 0) {
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, x, y, z'))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
     
     $posts = OAInput::post ('position');
@@ -68,6 +69,29 @@ class Uploads extends Site_controller {
     else
       return $this->output_json (array ('status' => false, 'message' => '更新失敗！'));
   }
+  public function eye ($token = 0) {
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, is_visibled'))))
+      return redirect_message (array (), array (
+          '_flash_message' => '當案不存在，或者您的權限不夠喔！'
+        ));
+    
+    $pic->is_visibled ^= 1;
+
+    $update = Picture::transaction (function () use ($pic) {
+      if (!$pic->save ())
+        return false;
+      return true;
+    });
+
+    if ($update)
+      return redirect_message (array (), array (
+          '_flash_message' => '檢視權限設定成功，(' . ($pic->is_visibled ? '公開' : '非公開') . ')！'
+        ));
+    else
+      return redirect_message (array (), array (
+          '_flash_message' => '檢視權限設定失敗！'
+        ));
+  }
 
   public function upload () {
     if (!$this->has_post ())
@@ -84,6 +108,11 @@ class Uploads extends Site_controller {
 
     $create = Picture::transaction (function () use ($posts, $picture) {
       if (!(verifyCreateOrm ($pic = Picture::create (array_intersect_key ($posts, Picture::table ()->columns))) && $pic->name->put ($picture)))
+        return false;
+
+      $pic->token = md5 ($pic->id . '_' . uniqid (rand () . '_'));
+
+      if (!$pic->save ())
         return false;
 
       delay_job ('pictures', 'update_virtual_versions_color', array ('id' => $pic->id));
@@ -106,6 +135,7 @@ class Uploads extends Site_controller {
   private function _validation_upload_posts (&$posts) {
     if (!isset ($posts['name'])) $posts['name'] = '';
     if (!isset ($posts['made_at'])) $posts['made_at'] = '2011-10-10 10:10:10';
+    if (!isset ($posts['token'])) $posts['token'] = md5 (uniqid (rand () . '_'));
 
     return '';
   }

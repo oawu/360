@@ -3,13 +3,19 @@
   foreach ($pics as $pic) { ?>
     <div class='p'>
       <div class='b' data-position='<?php echo json_encode ($pic->position ());?>' data-url='<?php echo $pic->name->url ('1024w');?>' data-color='<?php echo str_replace ('#', '', $pic->color ('hex'));?>'></div>
-      <a href='<?php echo base_url ($pic->id);?>'></a>
-      <?php if (Session::getData ('user') === 'oa') { ?>
-        <a class='icon-pencil2 edit' data-url='<?php echo base_url ('edit', $pic->id);?>'></a>
-        <a class='icon-bin delete' data-url='<?php echo base_url ($pic->id);?>'></a>
-      <?php } ?>
-      <a class='icon-share2 share'></a>
-      <a class='icon-location location'></a>
+      <a href='<?php echo base_url ($pic->token);?>'></a>
+  <?php if (Session::getData ('user') === 'oa') { ?>
+          <a title='編輯檢視角度' class='icon-pencil2 edit l' data-url='<?php echo base_url ('edit', $pic->token);?>'></a>
+          <a title='刪除' class='icon-bin delete l' data-url='<?php echo base_url ($pic->token);?>'></a>
+    <?php if ($pic->is_visibled) { ?>
+            <a title='目前公開' class='icon-eye l' href='<?php echo base_url ('eye', $pic->token);?>' data-method='put'></a>
+    <?php } else { ?>
+            <a title='目前非公開' class='icon-eye-blocked l' href='<?php echo base_url ('eye', $pic->token);?>' data-method='put'></a>
+    <?php }?>
+  <?php } ?>
+      <a title='取得鏈結網址' class='icon-link link'></a>
+      <a title='分享至臉書' class='icon-share2 share' data-url='<?php echo base_url ($pic->token);?>'></a>
+      <a title='檢視地圖位置' class='icon-location location' data-url='<?php echo base_url ('location', $pic->token);?>'></a>
     </div>
   <?php
   } ?>

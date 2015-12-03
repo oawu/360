@@ -10,6 +10,17 @@ $(function () {
     })).max ());
   }).resize ();
 
+  $('.location').click (function () {
+    $.fancybox ({
+        href: $(this).data ('url'),
+        type: 'iframe',
+        padding: 0,
+        margin: 30,
+        width: '100%',
+        maxWidth: '1200',
+    });
+  });
+
   $('.edit').click (function () {
     $.fancybox ({
         href: $(this).data ('url'),
@@ -19,6 +30,10 @@ $(function () {
         width: '100%',
         maxWidth: '1200',
     });
+  });
+
+  $('.share').click (function () {
+    window.open ('https://www.facebook.com/sharer/sharer.php?u=' + $(this).data ('url'), '分享', 'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420,top=100,left=' + (window.screen ? Math.round(screen.width / 2 - 275) : 100));
   });
 
   $('.delete').click (function () {

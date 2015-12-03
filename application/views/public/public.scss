@@ -56,6 +56,13 @@ html {
   }
 }
 
+a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] {
+  display: none !important;
+}
+
+.gm-style-cc {
+  display: none;
+}
 .icon-play:before {
   content: "\e800";
 }
