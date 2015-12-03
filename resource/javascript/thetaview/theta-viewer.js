@@ -117,7 +117,7 @@
       mapping = new THREE.UVMapping;
       return async.map(this.images, function(img, done) {
         var texture;
-        THREE.ImageUtils.crossOrigin = 'http://pic.360.ioa.tw';
+        THREE.ImageUtils.crossOrigin = '*.360.ioa.tw';
         return texture = THREE.ImageUtils.loadTexture(img, mapping, function() {
           var material;
           material = new THREE.MeshBasicMaterial({
