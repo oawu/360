@@ -52,6 +52,8 @@ class Oa_controller extends Root_controller {
   }
 
   protected function add_meta ($attributes) {
+    if (isset ($attributes['name'])) $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['name']) || ($meta['name'] != $attributes['name']);});
+    if (isset ($attributes['property'])) $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['property']) || ($meta['property'] != $attributes['property']);});
     array_push ($this->meta_list, $attributes);
     return $this;
   }

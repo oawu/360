@@ -14,6 +14,7 @@ class Migration_Add_pictures extends CI_Migration {
         `token` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT '亂碼',
 
         `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
+        `cover` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Cover',
         `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page View',
 
         `color_r` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Red',

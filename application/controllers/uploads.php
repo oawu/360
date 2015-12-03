@@ -46,10 +46,15 @@ class Uploads extends Site_controller {
   }
 
   public function update ($token = 0) {
-    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, x, y, z'))))
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, cover, x, y, z'))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
     
     $posts = OAInput::post ('position');
+    
+    $cover = OAInput::post ('cover', false);
+    $cover = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $cover));
+    $file = FCPATH . implode (DIRECTORY_SEPARATOR, Cfg::system ('orm_uploader', 'uploader', 'temp_directory')) . DIRECTORY_SEPARATOR . uniqid (rand () . '_');
+    file_put_contents ($file, $cover);
 
     if ($msg = $this->_validation_position_posts ($posts))
       return $this->output_json (array ('status' => false, 'message' => $msg));
@@ -58,9 +63,13 @@ class Uploads extends Site_controller {
       foreach ($columns as $column => $value)
         $pic->$column = $value;
 
-    $update = Picture::transaction (function () use ($pic) {
+    $update = Picture::transaction (function () use ($pic, $file) {
       if (!$pic->save ())
         return false;
+
+      if (is_file ($file))
+        return $pic->cover->put ($file);
+
       return true;
     });
 

@@ -20,5 +20,19 @@ window.ajaxError = function (result) {
   console.error (result.responseText);
 };
 
+function uploadCover (url, cover) {
+  $.ajax ({
+    url: url,
+    data: {
+      cover: cover
+    },
+    async: true, cache: false, dataType: 'json', type: 'put',
+    beforeSend: function () { }
+  })
+  .done (function (result) { })
+  .fail (function (result) { ajaxError (result); })
+  .complete (function (result) { });
+}
+
 $(function () {
 });

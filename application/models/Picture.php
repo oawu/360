@@ -22,6 +22,7 @@ class Picture extends OaModel {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
     OrmImageUploader::bind ('name', 'PictureNameImageUploader');
+    OrmImageUploader::bind ('cover', 'PictureCoverImageUploader');
   }
   
   public function destroy () {

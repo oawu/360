@@ -22,7 +22,10 @@ $(function () {
 
   ball.viewer = new ThetaViewer (ball, null, $('#ball').data ('position'), $('#ball').data ('color'), true);
   ball.viewer.images = [$('#ball').data ('url')];
-  ball.viewer.load ();
+  ball.viewer.load (function () {
+      if (!($ball.data ('cover') && $ball.data ('cover').length))
+        uploadCover ($ball.data ('cover_url'), $ball.find ('canvas').get (0).toDataURL ());
+    });
 
   $('body').css ({
     'background': '#' + $('#ball').data ('color')

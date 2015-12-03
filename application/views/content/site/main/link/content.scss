@@ -1,0 +1,85 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+html body {
+  display: inline-block;
+  height: auto;
+}
+.link {
+  height: 100px;
+  display: inline-block;
+  width: 100%;
+  padding: 25px 10px;
+
+  > div {
+    @include clearfix();
+    margin: 0 auto;
+
+    &.m {
+      display: inline-block;
+      margin-top: 5px;
+      padding: 1px 10px;
+      letter-spacing: 2px;
+      border: 1px solid rgba(39, 40, 34, .4);
+      background-color: rgba(255, 255, 255, .8);
+      font-size: 15px;
+      @include opacity(0);
+      @include border-radius(2px);
+      
+      &.s {
+        @include opacity(0);
+        @include animation(m_s 5s);
+        @include keyframes(m_s){
+          0% { @include opacity(0); }
+          5% { @include opacity(0); }
+          15% { @include opacity(.8); }
+          20% { @include opacity(1); }
+          85% { @include opacity(1); }
+          90% { @include opacity(.8); }
+          100% { @include opacity(0); }
+        }
+      }
+    }
+    
+    .url {
+      float: left;
+      @include input;
+      width: calc(100% - 75px);
+    }
+    .copy {
+      float: right;
+      height: 30px;
+      margin-left: 5px;
+      width: 70px;
+      @include button;
+    }
+  }
+}
+
+.error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+
+  &:before {
+    content: '';
+    width: 0;
+    height: calc(50% - 35px / 2);
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+  }  
+  > div {
+    @include alert;
+    height: 35px;
+    width: 80%;
+    margin: 0 auto;
+  }
+}

@@ -2,7 +2,9 @@
 
 Route::root ('main');
 Route::get ('location/(:any)', 'main@location($1)');
+Route::get ('link/(:any)', 'main@link($1)');
 Route::get ('content/(:any)', 'main@content($1)');
+Route::put ('cover/(:any)', 'main@cover($1)');
 Route::get ('login', 'main@login');
 Route::post ('login', 'main@signin');
 Route::delete ('logout', 'main@logout');

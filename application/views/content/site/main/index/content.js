@@ -10,6 +10,35 @@ $(function () {
     })).max ());
   }).resize ();
 
+  $('.link').click (function () {
+    $('#link_panel').addClass ('s');
+  });
+  $('#link_panel .d').click (function () {
+    $('#link_panel').removeClass ('s');
+  });
+  $('#link_panel .c').click (function () {
+    $('#link_panel').removeClass ('s');
+  });
+  var $url = $('.url').click (function () {
+    $(this).select ();
+  });
+
+  $('#link_panel .copy').click (function () {
+      window.getSelection ().removeAllRanges ();
+      var range = document.createRange ();
+      range.selectNode ($url.get (0));
+      window.getSelection ().addRange (range);
+
+      try {
+        var successful = document.execCommand ('copy');
+        $('#link_panel .m').text ('已經複製囉！').addClass ('s');
+      } catch (err) {
+        $('#link_panel .m').text ('GG.. 複製失敗..').addClass ('s');
+      }
+
+      window.getSelection ().removeAllRanges ();
+  });
+
   $('.location').click (function () {
     $.fancybox ({
         href: $(this).data ('url'),
@@ -29,6 +58,9 @@ $(function () {
         margin: 30,
         width: '100%',
         maxWidth: '1200',
+        afterClose: function () {
+          location.reload ();
+        }
     });
   });
 
@@ -65,7 +97,8 @@ $(function () {
   }
 
   $('.b').each (function () {
-    var that = $(this).get (0);
+    var $this = $(this);
+    var that = $this.get (0);
     var position = $(this).data ('position');
     that.viewer = new ThetaViewer (that, null, $(this).data ('position'), $(this).data ('color'), false, {
       max: 100,
@@ -73,6 +106,10 @@ $(function () {
     });
     that.viewer.setEnable (false);
     that.viewer.images = [$(this).data ('url')];
-    that.viewer.load ();
+    that.viewer.load (function () {
+      if (!($this.data ('cover') && $this.data ('cover').length))
+        uploadCover ($this.data ('cover_url'), $this.find ('canvas').get (0).toDataURL ());
+    });
   });
+
 });
