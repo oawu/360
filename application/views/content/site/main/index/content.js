@@ -5,9 +5,9 @@
 
 $(function () {
   $(window).resize (function () {
-    $('.p').each (function () {
-      $(this).height ($(this).width ());
-    });
+    $('.p').height ($.makeArray ($('.p').map (function () {
+      return $(this).width ();
+    })).max ());
   }).resize ();
 
   $('.edit').click (function () {
@@ -52,7 +52,10 @@ $(function () {
   $('.b').each (function () {
     var that = $(this).get (0);
     var position = $(this).data ('position');
-    that.viewer = new ThetaViewer (that, null, $(this).data ('position'), $(this).data ('color'));
+    that.viewer = new ThetaViewer (that, null, $(this).data ('position'), $(this).data ('color'), false, {
+      max: 100,
+      min: 388
+    });
     that.viewer.setEnable (false);
     that.viewer.images = [$(this).data ('url')];
     that.viewer.load ();
