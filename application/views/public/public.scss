@@ -81,6 +81,9 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-chevron-left:before {
   content: "\e60b";
 }
+.icon-x:before {
+  content: "\e625";
+}
 .icon-eye-blocked:before {
   content: "\e62a";
 }
