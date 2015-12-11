@@ -25,8 +25,6 @@ $(function () {
   });
 
   $('.icon-location').click (function () {
-    console.error ($(this).data ('url'));
-    
     $.fancybox ({
         href: $(this).data ('url'),
         type: 'iframe',
