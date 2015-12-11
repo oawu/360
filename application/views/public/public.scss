@@ -63,11 +63,15 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
   display: none;
 }
 
+
 .icon-move:before {
   content: "\e900";
 }
 .icon-warning:before {
   content: "\e902";
+}
+.icon-info-outline:before {
+  content: "\e901";
 }
 .icon-link-external:before {
   content: "\e605";
