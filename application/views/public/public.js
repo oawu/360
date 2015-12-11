@@ -20,7 +20,21 @@ window.ajaxError = function (result) {
   console.error (result.responseText);
 };
 
-function uploadCover (url, cover) {
+function uploadCoverPosition (url, cover, position, callback) {
+  $.ajax ({
+    url: url,
+    data: {
+      cover: cover,
+      position: position,
+    },
+    async: true, cache: false, dataType: 'json', type: 'post',
+    beforeSend: function () { }
+  })
+  .done (callback ? callback : function (result) { })
+  .fail (function (result) { ajaxError (result); })
+  .complete (function (result) { });
+}
+function uploadCover (url, cover, callback) {
   $.ajax ({
     url: url,
     data: {
@@ -29,7 +43,7 @@ function uploadCover (url, cover) {
     async: true, cache: false, dataType: 'json', type: 'post',
     beforeSend: function () { }
   })
-  .done (function (result) { })
+  .done (callback ? callback : function (result) { })
   .fail (function (result) { ajaxError (result); })
   .complete (function (result) { });
 }

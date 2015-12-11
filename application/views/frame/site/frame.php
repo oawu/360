@@ -15,7 +15,7 @@
     <?php echo render_cell ('frame_cell', 'nav');?>
     <div id='container'>
 <?php if ($_flash_message = Session::getData ('_flash_message', true)) { ?>
-        <div class='_m'><?php echo $_flash_message;?></div>
+        <div class='_m icon-warning'><?php echo $_flash_message;?></div>
 <?php }?>
       <?php echo isset ($content) ? $content : ''; ?>
     </div>

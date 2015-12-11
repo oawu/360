@@ -6,8 +6,8 @@
     </div>
 <?php
   } else { ?>
-    <div class='error'>
-      <div>當案不存在，或者您的權限不夠喔！</div>
+    <div id='warning' class='icon-warning'>
+      當案不存在<br/>或者您的權限不夠喔！
     </div>
 <?php
   }

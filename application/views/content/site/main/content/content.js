@@ -5,29 +5,18 @@
 
 $(function () {
   var $ball = $('#ball');
+  var $move = $('#move');
   if (!$ball.length) return;
-
   var ball = $ball.get (0);
 
-  $(window).resize (function () {
-    if ($(window).height () < $(window).width ())
-      $ball.css ({
-        top: 0 - Math.abs (($(window).height () - $(window).width ()) / 2)
-      });
-    else
-      $ball.css ({
-        left: 0 - Math.abs (($(window).width () - $(window).height ()) / 2)
-      });
-  }).resize ();
-
-  ball.viewer = new ThetaViewer (ball, null, $('#ball').data ('position'), $('#ball').data ('color'), true);
-  ball.viewer.images = [$('#ball').data ('url')];
-  ball.viewer.load (function () {
-      if (!($ball.data ('cover') && $ball.data ('cover').length))
-        uploadCover ($ball.data ('cover_url'), $ball.find ('canvas').get (0).toDataURL ());
+  ball.viewer = new ThetaViewer (ball, null, $ball.data ('position'), $ball.data ('color'), 1, {
+      max: 500,
+      min: 100
     });
-
-  $('body').css ({
-    'background': '#' + $('#ball').data ('color')
-  });
+  // ball.viewer.autoRotate = true;
+  ball.viewer.images = [$ball.data ('url')];
+  ball.viewer.load ();
+  
+  $move.bind ('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function () { $(this).remove (); });
+  setTimeout (function () { $move.remove (); }, 3500);
 });

@@ -60,7 +60,7 @@
   @include split($leftName, $rightName);
 
   #{$leftName} {
-    width: $leftWidth;
+    width: #{$leftWidth};
   }
   #{$rightName} {
     width: calc(100% - #{$leftWidth});
@@ -73,7 +73,7 @@
     width: calc(100% - #{$rightWidth});
   }
   #{$rightName} {
-    width: $rightWidth;
+    width: #{$rightWidth};
   }
 }
 

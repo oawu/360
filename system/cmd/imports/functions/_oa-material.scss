@@ -56,17 +56,37 @@
   &:focus {
     outline: 0;
   }
-
-  $value: map-get($btns, $color);
-  @if($value){
-    background-color: rgba(nth($value, 1), nth($value, 2), nth($value, 3), 1);
+  @if $color == 'black' {
+    background-color: rgba(0, 0, 0, 1);
+    @include box-shadow(none);
+    color: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(255, 255, 255, .5);
     &:hover {
-      background-color: rgba(nth($value, 1) - 10, nth($value, 2) - 10,nth($value, 3) - 10, 1);
+      @include box-shadow(none);
+      background-color: rgba(0, 0, 0, 1);
+      color: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(255, 255, 255, 1);
     }
     &[disabled] {
-      background-color: rgba(nth($value, 1) + 70, nth($value, 2) + 70, nth($value, 3) + 70, 0.85);
-      color: rgba(255, 255, 255, 1);
+      &, &:hover {
+        color: rgba(255, 255, 255, .3);
+        border: 1px solid rgba(255, 255, 255, .3);
+        background-color: rgba(0, 0, 0, 1);
+      }
     }
+  } @else {
+    $value: map-get($btns, $color);
+    @if($value){
+      background-color: rgba(nth($value, 1), nth($value, 2), nth($value, 3), 1);
+      &:hover {
+        background-color: rgba(nth($value, 1) - 10, nth($value, 2) - 10,nth($value, 3) - 10, 1);
+      }
+      &[disabled] {
+        background-color: rgba(nth($value, 1) + 70, nth($value, 2) + 70, nth($value, 3) + 70, 0.85);
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+
   }
 
   @include keyframes(oa-material-button-jelly-effect) {

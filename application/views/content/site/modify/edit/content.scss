@@ -18,29 +18,24 @@ html {
   cursor: move;
   height: 100%;
 }
-#prev, #next {
-  @include a(0, false, rgba(255, 255, 255, .5), rgba(255, 255, 255, 1));
+#cover {
+  @include button('black');
+  font-weight: normal;
   position: absolute;
   bottom: 10px;
+  right: 10px;
   display: inline-block;
-  width: 100px;
-  height: 50px;
-  line-height: 48px;
-  font-size: 30px;
+  font-size: 25px;
+  padding: 5px 10px;
   color: rgba(255, 255, 255, .5);
   border: 1px solid rgba(255, 255, 255, .5);
   background-color: rgba(0, 0, 0, .7);
+  cursor: pointer;
   @include border-radius(3px);
   
   &:hover {
     border-color: rgba(255, 255, 255, 1);
   }
-}
-#prev {
-  left: 10px;
-}
-#next {
-  right: 10px;
 }
 #move {
   $h: 140px;

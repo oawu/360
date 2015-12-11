@@ -4,132 +4,112 @@
  */
 
 @import "_oa";
-#container {
-  padding: 0 !important;
+
+$layouts: (
+  (0 + 15px, 200px + 15px, 150px, 10px, 1),
+  (200px + 15px, 250px + 15px, 200px, 10px, 1),
+  (250px + 15px, 300px + 15px, 250px, 10px, 1),
+  (300px + 15px, 350px + 15px, 290px, 10px, 1),
+  (350px + 15px, 375px + 15px, 330px, 10px, 1),
+  (375px + 15px, 470px + 15px, 375px, 10px, 1),
+  (470px + 15px, 520px + 15px, 225px, 10px, 2),
+  (520px + 15px, 570px + 15px, 250px, 10px, 2),
+  (570px + 15px, 620px + 15px, 275px, 10px, 2),
+  (620px + 15px, 660px + 15px, 300px, 10px, 2),
+  (660px + 15px, 680px + 15px, 320px, 10px, 2),
+  (680px + 15px, 720px + 15px, 320px, 20px, 2),
+  (720px + 15px, 790px + 15px, 340px, 20px, 2),
+  (790px + 15px, 865px + 15px, 250px, 10px, 3),
+  (865px + 15px, 940px + 15px, 275px, 10px, 3),
+  (940px + 15px, 1000px + 15px, 300px, 10px, 3),
+  (1000px + 15px, 1060px + 15px, 320px, 10px, 3),
+  (1060px + 15px, 1160px + 15px, 250px, 10px, 4),
+  (1160px + 15px, 1220px + 15px, 275px, 10px, 4),
+  (1220px + 15px, 9000px + 15px, 275px, 20px, 4),
+);
+body {
+    // background: #fff !important;;
 }
-.ps {
-  position: relative;
-  display: inline-block;
-  display: block;
-  padding: 0;
-  padding-top: 20px;
+.balls {
+  margin: 0 auto;
+  margin-top: 40px;
   @include clearfix();
-
-  .p {
-    float: left;
+  
+  .ball {
     position: relative;
+    float: left;
     display: inline-block;
-    width: 360px;
-    height: 360px;
-    margin: 20px;
-    padding: 5px;
-    background-color: rgba(255, 255, 255, 1);
-    @include border-radius(50%);
-    img {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 10;
-      @include border-radius(50%);
-      @include box-shadow(0 0 1px rgba(39, 40, 34, .5)); 
-    }
-    .b {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 10;
-      @include border-radius(50%);
-      @include box-shadow(0 0 1px rgba(39, 40, 34, .5));
-    }
-    a:nth-child(2) {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-      z-index: 20;
-      @include border-radius(50%);
-      @include box-shadow(0 0 10px rgba(39, 40, 34, .5));
-      @include transition(all .3s);
-      
-      &:hover {
-        @include box-shadow(0 0 20px rgba(39, 40, 34, .5));
 
-        & ~ a[class^="icon-"], [class*=" icon-"] {
-          @include opacity(.5);
+    .obj {
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      z-index: 3;
+      @include border-radius(50%);
+      + .border {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+    .border {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      border: 4px solid rgba(235, 235, 235, 1);
+      z-index: 5;
+      @include border-radius(50%);
+      @include box-shadow(inset 0 0 10px 2px rgba(0, 0, 0, 1), 0 0 5px rgba(0, 0, 0, 1));
+    }
+    .btns {
+      padding: 10px 5px;
+      @include clearfix();
+
+      @for $i from 1 through 6 {
+        &.n#{$i} {
+          > a {
+            width: calc(100% / #{$i} - 10px);
+          }
+        }
+      }
+      > a {
+        float: left;
+        @include a(0, false, rgba(255, 255, 255, .5), rgba(255, 255, 255, 1));
+        margin: 0 5px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 25px;
+        color: rgba(255, 255, 255, .5);
+        border: 1px solid rgba(255, 255, 255, .5);
+        background-color: rgba(0, 0, 0, .7);
+        cursor: pointer;
+        @include border-radius(3px);
+
+        &:hover {
+          border-color: rgba(255, 255, 255, 1);
         }
       }
     }
-    > a[class^="icon-"], [class*=" icon-"] {
-      position: absolute;
-      cursor: pointer;
-      z-index: 30;
-      font-size: 22px;
-      padding: 10px;
-      background-color: rgba(255, 255, 255, 1);
-      border: 1px solid rgba(39, 40, 34, .3);
-      color: rgba(50, 50, 50, 0.8);
-      text-decoration: none;
-      @include border-radius(50%);
-      @include box-shadow(0 0 5px rgba(39, 40, 34, .3));
-      @include transition(all .3s);
-      @include opacity(0);
-      &:hover {
-        @include opacity(1);
-      }
-      &.l {
-        background-color: rgba(250, 205, 154, 1);
-      }
-    }
-  }
-  $layouts: (
-    (0, 400px, 1, 20px),
-    (400px, 700px, 2, 20px),
-    (700px, 1200px, 3, 20px),
-    (1200px, 9000px, 4, 20px),
-  );
-  @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
-    padding-top: 10px;
   }
 
-  $dd: 44px;
   @each $layout in $layouts {
     @media screen and (min-width: #{nth($layout, 1)}) and (max-width: #{nth($layout, 2) - 1px}) {
-      .p {
-        margin: nth($layout, 4);
-        width: calc(100% / #{nth($layout, 3)} - #{nth($layout, 4) * 2});
+      width: #{(nth($layout, 3) + nth($layout, 4) * 2) * nth($layout, 5) - nth($layout, 4) * 2};
+      .ball {
+        width: #{nth($layout, 3)};
+        height: #{nth($layout, 3) + 40px + 20px};
+        margin: #{nth($layout, 4)};
+        &:nth-child(#{nth($layout, 5)}n + 1) {
+          margin-left: 0;
+        }
+        &:nth-child(#{nth($layout, 5)}n + #{nth($layout, 5)}) {
+          margin-right: 0;
+        }
 
-        > a {
-          &:nth-child(3) {
-            top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(-60deg)});
-            left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(-60deg)});
-          }
-          &:nth-child(4) {
-            top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(60deg)});
-            left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(60deg)});
-          }
-          &:nth-child(5) {
-            top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(180deg)});
-            left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(180deg)});
-          }
-          &:nth-child(6) {
-            top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(0deg)});
-            left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(0deg)});
-          }
-          &:nth-child(7) {
-            top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(120deg)});
-            left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(120deg)});
-          }
-          &:nth-child(8) {
-            top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(-120deg)});
-            left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(-120deg)});
-          }
+        .border, .obj {
+          height: #{nth($layout, 3)};
         }
       }
     }
@@ -140,12 +120,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: inline-block;
   width: 100%;
   height: 100%;
   z-index: 9999;
-
   display: none;
+  padding-top: 20px;
+
   &.s {
     display: inline-block;
   }
@@ -160,10 +140,9 @@
     z-index: 10;
   }
   .pl {
-    position: absolute;
-    left: 50px;
-    right: 50px;
-    top: 25%;
+    position: relative;
+    width: 100%;
+    max-width: 450px;
 
     display: inline-block;
     height: 100px;
@@ -243,10 +222,258 @@
           height: 30px;
           margin-left: 5px;
           width: 70px;
-          @include button;
+          @include button('black');
+          padding: 0;
         }
       }
     }
   }
 }
+
+
+// #container {
+//   padding: 0 !important;
+// }
+// .ps {
+//   position: relative;
+//   display: inline-block;
+//   display: block;
+//   padding: 0;
+//   padding-top: 20px;
+//   @include clearfix();
+
+//   .p {
+//     float: left;
+//     position: relative;
+//     display: inline-block;
+//     width: 360px;
+//     height: 360px;
+//     margin: 20px;
+//     padding: 5px;
+//     background-color: rgba(255, 255, 255, 1);
+//     @include border-radius(50%);
+//     img {
+//       position: relative;
+//       display: inline-block;
+//       width: 100%;
+//       height: 100%;
+//       overflow: hidden;
+//       z-index: 10;
+//       @include border-radius(50%);
+//       @include box-shadow(0 0 1px rgba(39, 40, 34, .5)); 
+//     }
+//     .b {
+//       position: relative;
+//       display: inline-block;
+//       width: 100%;
+//       height: 100%;
+//       overflow: hidden;
+//       z-index: 10;
+//       @include border-radius(50%);
+//       @include box-shadow(0 0 1px rgba(39, 40, 34, .5));
+//     }
+//     a:nth-child(2) {
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       display: inline-block;
+//       width: 100%;
+//       height: 100%;
+//       cursor: pointer;
+//       z-index: 20;
+//       @include border-radius(50%);
+//       @include box-shadow(0 0 10px rgba(39, 40, 34, .5));
+//       @include transition(all .3s);
+      
+//       &:hover {
+//         @include box-shadow(0 0 20px rgba(39, 40, 34, .5));
+
+//         & ~ a[class^="icon-"], [class*=" icon-"] {
+//           @include opacity(.5);
+//         }
+//       }
+//     }
+//     > a[class^="icon-"], [class*=" icon-"] {
+//       position: absolute;
+//       cursor: pointer;
+//       z-index: 30;
+//       font-size: 22px;
+//       padding: 10px;
+//       background-color: rgba(255, 255, 255, 1);
+//       border: 1px solid rgba(39, 40, 34, .3);
+//       color: rgba(50, 50, 50, 0.8);
+//       text-decoration: none;
+//       @include border-radius(50%);
+//       @include box-shadow(0 0 5px rgba(39, 40, 34, .3));
+//       @include transition(all .3s);
+//       @include opacity(0);
+//       &:hover {
+//         @include opacity(1);
+//       }
+//       &.l {
+//         background-color: rgba(250, 205, 154, 1);
+//       }
+//     }
+//   }
+//   $layouts: (
+//     (0, 400px, 1, 20px),
+//     (400px, 700px, 2, 20px),
+//     (700px, 1200px, 3, 20px),
+//     (1200px, 9000px, 4, 20px),
+//   );
+//   @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+//     padding-top: 10px;
+//   }
+
+//   $dd: 44px;
+//   @each $layout in $layouts {
+//     @media screen and (min-width: #{nth($layout, 1)}) and (max-width: #{nth($layout, 2) - 1px}) {
+//       .p {
+//         margin: nth($layout, 4);
+//         width: calc(100% / #{nth($layout, 3)} - #{nth($layout, 4) * 2});
+
+//         > a {
+//           &:nth-child(3) {
+//             top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(-60deg)});
+//             left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(-60deg)});
+//           }
+//           &:nth-child(4) {
+//             top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(60deg)});
+//             left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(60deg)});
+//           }
+//           &:nth-child(5) {
+//             top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(180deg)});
+//             left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(180deg)});
+//           }
+//           &:nth-child(6) {
+//             top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(0deg)});
+//             left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(0deg)});
+//           }
+//           &:nth-child(7) {
+//             top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(120deg)});
+//             left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(120deg)});
+//           }
+//           &:nth-child(8) {
+//             top: calc(((100% - #{$dd}) / 2) - (100% / 2 + 5px) * #{cos(-120deg)});
+//             left: calc(((100% - #{$dd}) / 2) + (100% / 2 + 5px) * #{sin(-120deg)});
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// #link_panel {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   display: inline-block;
+//   width: 100%;
+//   height: 100%;
+//   z-index: 9999;
+
+//   display: none;
+//   &.s {
+//     display: inline-block;
+//   }
+//   .c {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     display: inline-block;
+//     width: 100%;
+//     height: 100%;
+//     background-color: rgba(39, 40, 34, .5);
+//     z-index: 10;
+//   }
+//   .pl {
+//     position: absolute;
+//     left: 50px;
+//     right: 50px;
+//     top: 25%;
+
+//     display: inline-block;
+//     height: 100px;
+
+//     background-color: rgba(255, 255, 255, .9);
+//     @include border-radius(2px);
+//     @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.2));
+//     z-index: 20;
+
+//     .d {
+//       $dw: 30px;
+//       position: absolute;
+//       top: -$dw / 2;
+//       right: -$dw / 2;
+//       display: inline-block;
+//       width: $dw;
+//       height: $dw;
+//       line-height: $dw - 1px;
+//       text-align: center;
+//       cursor: pointer;
+//       background-color: rgba(255, 255, 255, .9);
+//       @include border-radius(50%);
+//       @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.5));
+//       @include transition(all .3s);
+
+//       &:hover {
+//         background-color: rgba(255, 255, 255, 1);
+//         @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.4), 0 0 2px rgba(0, 0, 0, 0.6));
+//       }
+//       &:active {
+//         background-color: rgba(255, 255, 255, 1);
+//         @include box-shadow(inset 0 0 4px rgba(0, 0, 0, 0.4), inset 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 15px 1px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.5));
+//       }
+//     }
+//     .l {
+//       height: 100px;
+//       display: inline-block;
+//       width: 100%;
+//       padding: 25px 10px;
+
+//       > div {
+//         @include clearfix();
+//         margin: 0 auto;
+
+//         &.m {
+//           display: inline-block;
+//           margin-top: 5px;
+//           padding: 1px 10px;
+//           letter-spacing: 2px;
+//           border: 1px solid rgba(39, 40, 34, .4);
+//           background-color: rgba(255, 255, 255, .8);
+//           font-size: 15px;
+//           @include opacity(0);
+//           @include border-radius(2px);
+          
+//           &.s {
+//             @include opacity(0);
+//             @include animation(m_s 5s);
+//             @include keyframes(m_s){
+//               0% { @include opacity(0); }
+//               10% { @include opacity(.8); }
+//               15% { @include opacity(1); }
+//               85% { @include opacity(1); }
+//               90% { @include opacity(.8); }
+//               100% { @include opacity(0); }
+//             }
+//           }
+//         }
+        
+//         .url {
+//           float: left;
+//           @include input;
+//           width: calc(100% - 75px);
+//         }
+//         .copy {
+//           float: right;
+//           height: 30px;
+//           margin-left: 5px;
+//           width: 70px;
+//           @include button;
+//         }
+//       }
+//     }
+//   }
+// }
 
