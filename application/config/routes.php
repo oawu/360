@@ -4,6 +4,7 @@ Route::root ('main');
 Route::get ('/(:any)', 'main@content($1)');
 Route::post ('cover/(:any)', 'main@cover($1)');
 Route::get ('location/(:any)', 'main@location($1)');
+Route::post ('platform/login', 'platform@signin');
 
 // Route::get ('location/(:any)', 'main@location($1)');
 // Route::get ('link/(:any)', 'main@link($1)');

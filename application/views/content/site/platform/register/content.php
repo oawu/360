@@ -5,6 +5,6 @@
   </div>
   <div>
     <a href='<?php echo base_url ();?>'>首頁</a>
-    <a href='<?php echo base_url ('login');?>'>登入</a>
+    <a href='<?php echo base_url ('platform', 'login');?>'>登入</a>
   </div>
 </form>

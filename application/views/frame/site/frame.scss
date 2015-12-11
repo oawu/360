@@ -21,11 +21,12 @@ html {
   left: calc((100% - #{$w}) / 2);
   display: inline-block;
   width: $w;
-  height: $h;
   line-height: 25px;
   border: 1px solid rgba(255, 255, 255, .3);
   font-size: 20px;
-  background-color: rgba(0, 0, 0, .7);
+  padding: 0 10px;
+  padding-bottom: 20px;
+  background-color: rgba(0, 0, 0, 1);
   color: rgba(255, 255, 255, .75);
   @include border-radius(5px);
   z-index: 99999;
