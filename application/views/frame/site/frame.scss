@@ -12,33 +12,42 @@ html {
     }
   }
 }
-$msgHeight: 40px;
-._m {
-  @include alert('info');
-  position: fixed;
-  top: -$msgHeight;
-  left: 0;
-  display: inline-block;
-  width: 100%;
-  height: $msgHeight;
-  padding: 10px;
-  border-right: 0;
-  border-left: 0;
-  background-color: rgba(217, 237, 247, .65);
-  z-index: 997;
 
-  @include background-image(radial-gradient(50% 50%, rgba(217, 237, 247, 1) 0px, rgba(255, 255, 255, 0) 100%));
-  background-repeat: no-repeat;
-  background-position: 50% 5px;
+._m {
+  $h: 140px;
+  $w: 250px;
+  position: absolute;
+  top: calc(((100% - #{$h}) / 5) * 2);
+  left: calc((100% - #{$w}) / 2);
+  display: inline-block;
+  width: $w;
+  height: $h;
+  line-height: 25px;
+  border: 1px solid rgba(255, 255, 255, .3);
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, .7);
+  color: rgba(255, 255, 255, .75);
+  @include border-radius(5px);
+  z-index: 99999;
+  // @include box-shadow(0 0 10px 1px rgba(0, 0, 0, 1));
+
+  &:before {
+    display: inline-block;
+    width: 100%;
+    font-size: 55px;
+    margin-bottom: 10px;
+    line-height: 60px;
+    padding: 5px;
+  }
 
   @include border-radius(0);
   @include opacity(0);
   @include animation(_m_s 5s);
   @include keyframes(_m_s){
-    0% { top: -$msgHeight; @include opacity(0); }
-    5% { top: -$msgHeight; @include opacity(0); }
-    15% { top: 0 + $msgHeight - 5px; @include opacity(1); }
-    90% { top: 0 + $msgHeight - 5px; @include opacity(1); }
-    100% { top: -$msgHeight; @include opacity(0); }
+    0% { top: -$h; @include opacity(0); }
+    5% { top: -$h; @include opacity(0); }
+    15% { top: 0 + $h - 5px; @include opacity(1); }
+    90% { top: 0 + $h - 5px; @include opacity(1); }
+    100% { top: -$h; @include opacity(0); }
   }
 }

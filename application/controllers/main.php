@@ -10,7 +10,7 @@ class Main extends Site_controller {
   public function content ($token = 0) {
     if (!($pic = Picture::find_by_token ($token)))
       return redirect_message (array (''), array (
-          '_flash_message' => '當案不存在<br/>或者您的權限不夠喔！'
+          '_flash_message' => ''
         ));
 
     if (!preg_match ('/^data:/', $og_img = $pic->cover->url ('1200x630c')))
@@ -83,7 +83,7 @@ class Main extends Site_controller {
     else
       return $this->output_json (array ('status' => false, 'message' => '上傳失敗！'));
   }
-  
+
   public function login () {
     $posts = Session::getData ('posts', true);
     return $this->load_view (array (
