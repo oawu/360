@@ -9,9 +9,9 @@
              data-position='<?php echo json_encode ($pic->position ());?>' 
              data-url='<?php echo $pic->name->url ('1024w');?>' 
              data-color='<?php echo str_replace ('#', '', $pic->color ('hex'));?>'></div>
-        <a href='http://dev.360.ioa.tw/e24fce3f67d948efe1335d5bfc26a840' class='border'></a>
+        <a href='<?php echo base_url ($pic->token);?>' class='border'></a>
 <?php } else {?>
-        <a href='http://dev.360.ioa.tw/e24fce3f67d948efe1335d5bfc26a840' class='border i_c'>
+        <a href='<?php echo base_url ($pic->token);?>' class='border i_c'>
           <img class='cover' src="<?php echo $pic->cover->url ();?>" />
         </a>
 <?php }
