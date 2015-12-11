@@ -13,6 +13,7 @@ $(function () {
       max: 500,
       min: 100
     });
+  // ball.viewer.autoRotate = true;
   ball.viewer.images = [$ball.data ('url')];
   ball.viewer.load ();
   
