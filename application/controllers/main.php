@@ -64,6 +64,9 @@ class Main extends Site_controller {
                     ), false);
   }
   public function cover ($token = 0) {
+    if (!$this->is_ajax ())
+      return $this->output_json (array ('status' => false, 'message' => '存取檔案方式錯誤！'));
+
     if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, cover'))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
     

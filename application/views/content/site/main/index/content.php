@@ -14,11 +14,17 @@
         <a href='http://dev.360.ioa.tw/e24fce3f67d948efe1335d5bfc26a840' class='border i_c'>
           <img class='cover' src="<?php echo $pic->cover->url ();?>" />
         </a>
-<?php }?>
-      <div class='btns'>
-        <a title='取得鏈結網址' class='l icon-link' data-url='<?php echo base_url ('link', $pic->token);?>'></a>
-        <a title='檢視地圖位置' class='c icon-location' data-url='<?php echo base_url ('location', $pic->token);?>'></a>
-        <a title='分享至臉書' class='r icon-mail-forward' data-url='<?php echo base_url ($pic->token);?>'></a>
+<?php }
+      if (Session::getData ('user') === 'oa') { ?>
+        <div class='btns n5'>
+          <a title='編輯' class='icon-pencil2' href='<?php echo base_url ('modify', $pic->token);?>'></a>
+          <a title='刪除' class='icon-bin' href='<?php echo base_url ('modify', $pic->token);?>' data-method='delete'></a>
+<?php } else { ?>
+        <div class='btns n3'>
+<?php } ?>
+        <a title='取得鏈結網址' class='icon-link' data-url='<?php echo base_url ('link', $pic->token);?>'></a>
+        <a title='檢視地圖位置' class='icon-location' data-url='<?php echo base_url ('location', $pic->token);?>'></a>
+        <a title='分享至臉書' class='icon-mail-forward' data-url='<?php echo base_url ($pic->token);?>'></a>
       </div>
     </div>
 <?php 

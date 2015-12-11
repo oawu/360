@@ -67,15 +67,16 @@ body {
       padding: 10px 5px;
       @include clearfix();
 
-      &.n2 {
-        .c, .l, .r {
-          width: calc(100% / 2 - 10px);
+      @for $i from 1 through 6 {
+        &.n#{$i} {
+          > a {
+            width: calc(100% / #{$i} - 10px);
+          }
         }
       }
-      .c, .l, .r {
+      > a {
         float: left;
         @include a(0, false, rgba(255, 255, 255, .5), rgba(255, 255, 255, 1));
-        width: calc(100% / 3 - 10px);
         margin: 0 5px;
         height: 40px;
         line-height: 40px;
