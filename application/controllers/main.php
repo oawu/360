@@ -35,7 +35,15 @@ class Main extends Site_controller {
         'conditions' => array ('is_visibled = ?', 1)
       ));
 
-    return $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
+    return $this->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox.css'))
+                ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.css'))
+                ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.css'))
+                ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
+                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
+                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))
+                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.js'))
+                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
                 ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
                 ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
                 ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
@@ -43,6 +51,7 @@ class Main extends Site_controller {
                     'pics' => $pics
                   ));
   }
+
   public function location ($token = 0) {
     $this->set_frame_path ('frame', 'pure');
 
@@ -74,30 +83,7 @@ class Main extends Site_controller {
     else
       return $this->output_json (array ('status' => false, 'message' => '上傳失敗！'));
   }
-  public function link ($token = 0) {
-    $this->set_frame_path ('frame', 'pure');
-
-    if (!($pic = Picture::find_by_token ($token)))
-      return $this->load_view (array (), false);
-    else
-      return $this->load_view (array (
-                      'pic' => $pic
-                    ), false);
-  }
-  public function contendt ($token = 0) {
-    $this->set_frame_path ('frame', 'pure');
-
-    if (!($pic = Picture::find_by_token ($token)))
-      return $this->load_view (array (), false);
-    else
-      return $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
-                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
-                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
-                  ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
-                  ->load_view (array (
-                      'pic' => $pic
-                    ), false);
-  }
+  
   public function login () {
     $posts = Session::getData ('posts', true);
     return $this->load_view (array (
