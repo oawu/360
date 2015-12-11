@@ -16,10 +16,10 @@
         });
       } else {
         this.__defineGetter__('width', function() {
-          return Math.max (this.dom.clientWidth, this.dom.clientHeight);
+          return this.dom.clientWidth;
         });
         this.__defineGetter__('height', function() {
-          return Math.max (this.dom.clientWidth, this.dom.clientHeight);
+          return this.dom.clientHeight;
         });
       }
       this.images = [];
