@@ -8,7 +8,7 @@
              data-cover_url='<?php echo base_url ('cover', $pic->token);?>' 
              data-position='<?php echo json_encode ($pic->position ());?>' 
              data-url='<?php echo $pic->name->url ('1024w');?>' 
-             data-color='<?php echo str_replace ('#', '', $pic->color ('hex'));?>'></div>
+             data-color='<?php echo str_replace ('#', '', '000000');?>'></div>
         <a href='<?php echo base_url ($pic->token);?>' class='border'></a>
 <?php } else {?>
         <a href='<?php echo base_url ($pic->token);?>' class='border i_c'>

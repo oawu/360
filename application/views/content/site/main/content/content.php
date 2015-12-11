@@ -5,7 +5,7 @@
         data-cover_url='<?php echo base_url ('cover', $pic->token);?>'
         data-position='<?php echo json_encode ($pic->position ());?>'
         data-url='<?php echo $pic->name->url ('4096w');?>'
-        data-color='<?php echo str_replace ('#', '', $pic->color ('hex'));?>'>
+        data-color='<?php echo str_replace ('#', '', '000000');?>'>
     </div>
     <a href='' id='prev' class='icon-chevron-left' title='上一張'></a>
     <a href='' id='next' class='icon-chevron-right' title='下一張'></a>
