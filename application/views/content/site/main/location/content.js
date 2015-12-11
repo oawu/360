@@ -5,6 +5,8 @@
 
 $(function () {
   var $map = $('#map');
+  if (!$map.length)
+      return;
   var _map = null;
 
   function initialize () {
