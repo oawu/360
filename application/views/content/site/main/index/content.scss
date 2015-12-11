@@ -221,7 +221,8 @@ body {
           height: 30px;
           margin-left: 5px;
           width: 70px;
-          @include button;
+          @include button('black');
+          padding: 0;
         }
       }
     }
