@@ -5,6 +5,12 @@
 
 @import "_oa";
 
+@media screen and (min-width: 0) and (max-width: #{450px - 1px}) {
+  #container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
 .login {
   display: inline-block;
   margin-top: 100px;
