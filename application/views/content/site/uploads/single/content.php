@@ -1,4 +1,5 @@
-<form id='form' action='<?php echo base_url ('uploads');?>' method='POST' enctype='multipart/form-data'>
+<form id='form' action='<?php echo base_url ('uploads');?>' method='post' enctype='multipart/form-data'>
+  <input type='hidden' name='t' value='<?php echo time ();?>' />
   <label for='picture' class='img' data-loading='圖片讀取中..'>
     <img id='img' src='' />
   </label>

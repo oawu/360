@@ -7,6 +7,7 @@ Route::get ('location/(:any)', 'main@location($1)');
 Route::get ('modify/(:any)', 'modify@edit($1)');
 Route::delete ('modify/(:any)', 'modify@destroy($1)');
 Route::post ('platform/login', 'platform@signin');
+Route::post ('uploads', 'uploads@upload');
 
 // Route::get ('location/(:any)', 'main@location($1)');
 // Route::get ('link/(:any)', 'main@link($1)');
