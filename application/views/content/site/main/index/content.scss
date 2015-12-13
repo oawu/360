@@ -96,6 +96,22 @@ body {
       border: 1px solid rgba(255, 188, 0, .6);
       background-color: rgba(0, 0, 0, 1);
       @include border-radius(50%);
+    }
+    .rotate {
+      position: absolute;
+      left: 5px;
+      bottom: 65px;
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      line-height: 26px;
+      color: rgba(255, 188, 0, .8);
+      padding: 2px 5px;
+      z-index: 10;
+      font-size: 20px;
+      border: 1px solid rgba(255, 188, 0, .6);
+      background-color: rgba(0, 0, 0, 1);
+      @include border-radius(50%);
       
     }
     .btns {

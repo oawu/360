@@ -45,7 +45,7 @@ class Picture extends OaModel {
     return $this->prev = $prev;
   }
   public function destroy () {
-    return $this->name->cleanAllFiles () && $this->delete ();
+    return $this->name->cleanAllFiles () && $this->cover->cleanAllFiles () && $this->delete ();
   }
   public function position () {
     return array (

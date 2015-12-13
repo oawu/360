@@ -12,7 +12,7 @@
         <a href='<?php echo base_url ($picture->token);?>' class='border'></a>
 <?php } else {?>
         <a href='<?php echo base_url ($picture->token);?>' class='border i_c'>
-          <img class='cover' src="<?php echo $picture->cover->url ('640w');?>" />
+          <img class='cover' src="<?php echo $picture->cover->url ('640x640c');?>" />
         </a>
 <?php }
       if (Session::getData ('user') === 'oa') { ?>
@@ -29,6 +29,9 @@
       <div class='views icon-eye2'><?php echo $picture->pv;?></div>
 <?php if (!$picture->is_visibled) { ?>
         <div class='lock icon-lock'></div>
+<?php }
+      if ($picture->is_rotated) { ?>
+        <div class='rotate icon-3d_rotation'></div>
 <?php } ?>
     </div>
 <?php 

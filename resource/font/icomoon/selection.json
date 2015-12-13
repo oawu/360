@@ -133,6 +133,84 @@
 		{
 			"icon": {
 				"paths": [
+					"M320 916l58-56 162 162-28 2q-200 0-347-136t-163-334h64q12 120 80 216t174 146zM632 904l272-272-512-512-272 272zM436 74l514 514q20 18 20 44t-20 46l-272 272q-18 20-44 20t-46-20l-514-514q-20-18-20-44t20-46l272-272q18-20 44-20t46 20zM704 108l-58 56-162-162 28-2q200 0 347 136t163 334h-64q-12-120-80-216t-174-146z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"screen_rotation"
+				],
+				"defaultCode": 57793,
+				"grid": 24
+			},
+			"attrs": [],
+			"properties": {
+				"order": 35,
+				"ligatures": "screen_rotation",
+				"prevSize": 24,
+				"name": "screen_rotation",
+				"id": 202,
+				"code": 57793
+			},
+			"setIdx": 7,
+			"setId": 10,
+			"iconIdx": 202
+		},
+		{
+			"icon": {
+				"paths": [
+					"M826 284q112 112 112 271t-112 271q-110 112-272 112-98 0-184-48l64-62q54 26 120 26 124 0 212-88 86-86 86-210t-86-212q-88-88-212-88v138l-180-180 180-182v138q162 0 272 114zM158 550l156 156 156-156-156-156zM314 274l276 276-276 276-278-276z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"rotate_90_degrees_ccw"
+				],
+				"defaultCode": 58392,
+				"grid": 24
+			},
+			"attrs": [],
+			"properties": {
+				"order": 32,
+				"ligatures": "rotate_90_degrees_ccw",
+				"prevSize": 24,
+				"name": "rotate_90_degrees_ccw",
+				"id": 459,
+				"code": 58392
+			},
+			"setIdx": 7,
+			"setId": 10,
+			"iconIdx": 459
+		},
+		{
+			"icon": {
+				"paths": [
+					"M512 0q200 0 347 135t163 333h-64q-10-118-79-214t-175-146l-58 56-162-162zM706 504q0-114-94-114h-40v246h38q72 0 92-68 4-14 4-48v-16zM612 342q106 0 144 94 10 24 10 68v16q0 76-42 118-44 44-114 44h-98v-340h100zM414 508q56 22 56 78 0 20-10 40-12 24-22 32-30 24-80 24-48 0-78-24t-30-70h54q0 22 15 36t39 14q56 0 56-54t-62-54h-32v-44h32q58 0 58-50t-52-50q-50 0-50 46h-56q0-34 30-64 32-26 76-26 70 0 98 54 8 16 8 40 0 46-50 72zM320 916l58-56 162 162-28 2q-200 0-347-136t-163-334h64q12 120 80 216t174 146z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"3d_rotation"
+				],
+				"defaultCode": 59469,
+				"grid": 24
+			},
+			"attrs": [],
+			"properties": {
+				"order": 34,
+				"ligatures": "3d_rotation",
+				"prevSize": 24,
+				"name": "3d_rotation",
+				"id": 663,
+				"code": 59469
+			},
+			"setIdx": 7,
+			"setId": 10,
+			"iconIdx": 663
+		},
+		{
+			"icon": {
+				"paths": [
 					"M640 768h-512v-510.094l128-1.906v-128h-256v768h768v-320h-128v192zM384 128l128 128-192 192 128 128 192-192 128 128v-384h-384z"
 				],
 				"isMulticolor": false,

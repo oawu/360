@@ -15,6 +15,10 @@ class Modify extends Site_controller {
         ));
   }
 
+  public function x ($token = '') {
+    foreach (Picture::all () as $pic)
+      $pic->cover->put_url ($pic->cover->url ());
+  }
   public function edit ($token = '') {
     if (!($pic = Picture::find_by_token ($token)))
       return redirect_message (array (''), array (

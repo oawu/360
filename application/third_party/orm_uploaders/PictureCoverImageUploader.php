@@ -19,7 +19,7 @@ class PictureCoverImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '640w' => array ('resize', 640, 640, 'width')
+        '640x640c' => array ('adaptiveResizeQuadrant', 640, 640, 'c'),
       );
   }
 }

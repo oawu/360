@@ -11,6 +11,8 @@ $(function () {
   var ball = $ball.get (0);
   var $rotated = $('#rotated');
 
+  addPv ('Picture', $ball.data ('token'));
+
   ball.viewer = new ThetaViewer (ball, function (position) {
       ball.viewer.position = {
         x: position.x,

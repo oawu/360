@@ -28,6 +28,16 @@ window.ajaxError = function (result) {
   console.error (result.responseText);
 };
 
+window.addPv = function (className, token) {
+  $.ajax ({
+      url: $('#ajax_pv_url').val (),
+      data: {
+        class: className,
+        token: token
+      },
+      async: true, cache: false, dataType: 'json', type: 'POST',
+  });
+};
 function uploadRotated (token, status, callback) {
   if ($('#rotated_url').val ())
     $.ajax ({

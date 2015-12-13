@@ -78,6 +78,15 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-info-outline:before {
   content: "\e901";
 }
+.icon-screen_rotation:before {
+  content: "\e1c1";
+}
+.icon-rotate_90_degrees_ccw:before {
+  content: "\e418";
+}
+.icon-3d_rotation:before {
+  content: "\e84d";
+}
 .icon-link-external:before {
   content: "\e605";
 }
