@@ -47,7 +47,7 @@ class Main extends Site_controller {
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Picture', OAInput::get ())));
     if (Session::getData ('user') !== 'oa') Picture::addConditions ($conditions, 'is_visibled = ?', 1);
 
-    $limit = 3;
+    $limit = 12;
     $total = Picture::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
     $pictures = Picture::find ('all', array (

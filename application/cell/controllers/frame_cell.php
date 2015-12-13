@@ -32,4 +32,12 @@ class Frame_cell extends Cell_Controller {
     return $this->setUseCssList (true)
                 ->load_view (array ('pagination' => $pagination));
   }
+
+  /* render_cell ('frame_cell', 'footer', var1, ..); */
+  // public function footer () {
+  //   return array ('time' => 60 * 60, 'key' => $type);
+  // }
+  public function footer () {
+    return $this->load_view ();
+  }
 }
