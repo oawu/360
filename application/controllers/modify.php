@@ -15,6 +15,21 @@ class Modify extends Site_controller {
         ));
   }
 
+  public function edit ($token = '') {
+    if (!($pic = Picture::find_by_token ($token)))
+      return redirect_message (array (''), array (
+          '_flash_message' => ''
+        ));
+
+    return $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
+                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
+                ->load_view (array (
+                    'pic' => $pic
+                  ));
+  }
+  
   private function _validation_visibled_posts (&$posts) {
     if (!(isset ($posts['is_visibled']) && is_numeric ($posts['is_visibled']) && in_array ($posts['is_visibled'], array (0, 1)))) return '參數錯誤！';
 

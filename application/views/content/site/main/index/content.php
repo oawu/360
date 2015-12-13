@@ -12,7 +12,7 @@
         <a href='<?php echo base_url ($picture->token);?>' class='border'></a>
 <?php } else {?>
         <a href='<?php echo base_url ($picture->token);?>' class='border i_c'>
-          <img class='cover' src="<?php echo $picture->cover->url ();?>" />
+          <img class='cover' src="<?php echo $picture->cover->url ('350w');?>" />
         </a>
 <?php }
       if (Session::getData ('user') === 'oa') { ?>
