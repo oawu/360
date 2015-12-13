@@ -13,11 +13,16 @@ class Main extends Site_controller {
           '_flash_message' => ''
         ));
 
-    if (!preg_match ('/^data:/', $og_img = $pic->cover->url ('1200x630c')))
-      $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $pic->made_at->format ('Y-m-d H:i:s') . ' - ' . Cfg::setting ('site', 'main', 'title')))
-           ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
-           ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
-           ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
+    foreach ($pic->cover->virtualVersions () as $key => $version) {
+      $size = count (array_filter ($size = preg_split ('/[xX]/', preg_replace ('/[^\dx]/', '', '1200x630c')), function ($t) { return is_numeric ($t); })) == 2 ? $size : array ();
+      
+      if (!preg_match ('/^data:/', $og_img = $pic->cover->url ($key)))
+        $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $pic->made_at->format ('Y-m-d H:i:s') . ' - ' . Cfg::setting ('site', 'main', 'title')))
+             ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)));
+      if ($size)
+        $this->add_meta (array ('property' => 'og:image:width', 'content' => $size[0]))
+             ->add_meta (array ('property' => 'og:image:height', 'content' => $size[1]));
+    }
 
     return $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
                 ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
