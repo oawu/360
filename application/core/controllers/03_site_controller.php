@@ -49,7 +49,7 @@ class Site_controller extends Oa_controller {
                 ->add_meta (array ('property' => 'og:description', 'content' => Cfg::setting ('site', 'main', 'description')))
                 
                 ->add_meta (array ('property' => 'fb:admins', 'content' => Cfg::setting ('facebook', 'admins')))
-                // ->add_meta (array ('property' => 'fb:app_id', 'content' => Cfg::setting ('facebook', 'appId')))
+                ->add_meta (array ('property' => 'fb:app_id', 'content' => Cfg::setting ('facebook', 'appId')))
 
                 ->add_meta (array ('property' => 'og:locale', 'content' => 'zh_TW'))
                 ->add_meta (array ('property' => 'og:locale:alternate', 'content' => 'en_US'))
