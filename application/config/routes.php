@@ -2,8 +2,6 @@
 
 Route::root ('main');
 
-Route::get ('modify/x', 'modify@x()');
-
 Route::get ('/(:num)', 'main@index($1)');
 Route::get ('/(:any)', 'main@content($1)');
 Route::post ('cover/(:any)', 'main@cover($1)');
