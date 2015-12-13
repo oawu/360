@@ -22,7 +22,7 @@ $(function () {
       min: 100
     });
 
-  ball.viewer.autoRotate = $rotated.prop ('checked');
+  ball.viewer.autoRotate = $ball.data ('rotated');
   ball.viewer.images = [$ball.data ('url')];
   ball.viewer.load (function () {
     if (!($ball.data ('cover') && $ball.data ('cover').length))

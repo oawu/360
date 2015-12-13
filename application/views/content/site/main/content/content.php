@@ -5,6 +5,7 @@
         data-token='<?php echo $pic->token;?>'
         data-position='<?php echo json_encode ($pic->position ());?>'
         data-url='<?php echo $pic->name->url ('4096w');?>'
+        data-rotated='<?php echo $pic->is_rotated;?>'
         data-color='<?php echo str_replace ('#', '', '000000');?>'>
     </div>
     <a href='<?php echo base_url ($pic->prev ()->token);?>' id='prev' class='icon-chevron-left' title='上一張'></a>

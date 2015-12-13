@@ -21,7 +21,7 @@
 <?php }?>
       <?php echo isset ($content) ? $content : ''; ?>
 
-      <?php echo render_cell ('frame_cell', 'footer');?>
+      <?php echo !(isset ($footer) && $footer) ? render_cell ('frame_cell', 'footer') : '';?>
     </div>
 
   </body>
