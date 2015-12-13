@@ -77,12 +77,55 @@ html {
     100% { @include opacity(0); }
   }
 }
-#cover {
+#share {
   @include button('black');
   font-weight: normal;
   position: absolute;
   top: 50px;
   right: 10px;
+  display: inline-block;
+  font-size: 25px;
+  padding: 8px 15px;
+  color: rgba(255, 255, 255, .5);
+  border: 1px solid rgba(255, 255, 255, .5);
+  background-color: rgba(0, 0, 0, .7);
+  cursor: pointer;
+  @include border-radius(3px);
+  
+  &:hover {
+    border-color: rgba(255, 255, 255, 1);
+  }
+}
+
+label[for='rotated'] {
+  @include switch(true, 'black');
+  font-weight: normal;
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  padding: 0 5px;
+  background-color: rgba(0, 0, 0, .7);
+  @include border-radius(3px);
+  cursor: pointer;
+  color: rgba(255, 255, 255, .5);
+  input {
+    &[disabled] {
+      ~ div {
+        cursor: not-allowed;
+      } 
+    }
+  }
+  > div {
+    display: inline-block;
+  }
+}
+#cover {
+  @include button('black');
+  font-weight: normal;
+  position: absolute;
+  top: 150px;
+  left: 10px;
   display: inline-block;
   font-size: 25px;
   padding: 5px 10px;

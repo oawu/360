@@ -28,6 +28,7 @@ class Site_controller extends Oa_controller {
   private function _add_hidden () {
     $this->add_hidden (array ('id' => 'cover_url', 'value' => base_url ('cover')))
          ->add_hidden (array ('id' => 'visibled_url', 'value' => Session::getData ('user') === 'oa' ? base_url ('modify', 'visibled') : base_url ()))
+         ->add_hidden (array ('id' => 'rotated_url', 'value' => Session::getData ('user') === 'oa' ? base_url ('modify', 'rotated') : base_url ()))
          ->add_hidden (array ('id' => 'cover_position_url', 'value' => Session::getData ('user') === 'oa' ? base_url ('modify', 'cover_position') : base_url ()));
 
 

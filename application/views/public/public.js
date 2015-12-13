@@ -28,6 +28,20 @@ window.ajaxError = function (result) {
   console.error (result.responseText);
 };
 
+function uploadRotated (token, status, callback) {
+  if ($('#rotated_url').val ())
+    $.ajax ({
+      url: $('#rotated_url').val () + '/' + token,
+      data: {
+        is_rotated: status ? 1 : 0,
+      },
+      async: true, cache: false, dataType: 'json', type: 'post',
+      beforeSend: function () { }
+    })
+    .done (callback ? callback : function (result) { })
+    .fail (function (result) { ajaxError (result); })
+    .complete (function (result) { });
+}
 function uploadVisibled (token, status, callback) {
   if ($('#visibled_url').val ())
     $.ajax ({

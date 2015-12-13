@@ -30,6 +30,11 @@ class Modify extends Site_controller {
                   ));
   }
   
+  private function _validation_rotated_posts (&$posts) {
+    if (!(isset ($posts['is_rotated']) && is_numeric ($posts['is_rotated']) && in_array ($posts['is_rotated'], array (0, 1)))) return '參數錯誤！';
+
+    return '';
+  }
   private function _validation_visibled_posts (&$posts) {
     if (!(isset ($posts['is_visibled']) && is_numeric ($posts['is_visibled']) && in_array ($posts['is_visibled'], array (0, 1)))) return '參數錯誤！';
 
@@ -101,6 +106,31 @@ class Modify extends Site_controller {
       return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => $pic->is_visibled ? '公開' : '不公開'));
     else
       return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => $pic->is_visibled ? '公開' : '不公開'));
+  }
+  public function rotated ($token = 0) {
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, is_rotated'))))
+      return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
+    
+    $posts = OAInput::post ();
+
+    if ($msg = $this->_validation_rotated_posts ($posts))
+      return $this->output_json (array ('status' => false, 'message' => $msg, 'content' => $pic->is_rotated ? '旋轉' : '不旋轉'));
+
+    if ($columns = array_intersect_key ($posts, $pic->table ()->columns))
+      foreach ($columns as $column => $value)
+        $pic->$column = $value;
+
+    $update = Picture::transaction (function () use ($pic) {
+      if (!$pic->save ())
+        return false;
+
+      return true;
+    });
+
+    if ($update)
+      return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => $pic->is_rotated ? '旋轉' : '不旋轉'));
+    else
+      return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => $pic->is_rotated ? '旋轉' : '不旋轉'));
   }
   public function destroy ($token = 0) {
     if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, name'))))

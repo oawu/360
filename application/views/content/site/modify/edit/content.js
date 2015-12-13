@@ -62,4 +62,17 @@ $(function () {
           $(this).nextAll ('div').text (result.content);
     }.bind ($(this)));
   });
+
+  $('#rotated').change (function () {
+    $(this).prop ('disabled', true).nextAll ('div').text ('設定中..');
+
+    uploadRotated (
+      $(this).data ('token'),
+      $(this).prop ('checked') === true,
+      function (result) {
+        $(this).prop ('disabled', false);
+        if (result.content)
+          $(this).nextAll ('div').text (result.content);
+    }.bind ($(this)));
+  });
 });

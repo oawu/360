@@ -9,6 +9,7 @@ $(function () {
   var $border = $('#border');
   if (!$ball.length) return;
   var ball = $ball.get (0);
+  var $rotated = $('#rotated');
 
   ball.viewer = new ThetaViewer (ball, function (position) {
       ball.viewer.position = {
@@ -20,7 +21,8 @@ $(function () {
       max: 500,
       min: 100
     });
-  // ball.viewer.autoRotate = true;
+
+  ball.viewer.autoRotate = $rotated.prop ('checked');
   ball.viewer.images = [$ball.data ('url')];
   ball.viewer.load (function () {
     if (!($ball.data ('cover') && $ball.data ('cover').length))
@@ -46,6 +48,18 @@ $(function () {
     $(this).prop ('disabled', true).nextAll ('div').text ('設定中..');
 
     uploadVisibled (
+      $(this).data ('token'),
+      $(this).prop ('checked') === true,
+      function (result) {
+        $(this).prop ('disabled', false);
+        if (result.content)
+          $(this).nextAll ('div').text (result.content);
+    }.bind ($(this)));
+  });
+  $rotated.change (function () {
+    $(this).prop ('disabled', true).nextAll ('div').text ('設定中..');
+
+    uploadRotated (
       $(this).data ('token'),
       $(this).prop ('checked') === true,
       function (result) {
