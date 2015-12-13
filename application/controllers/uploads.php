@@ -49,7 +49,7 @@ class Uploads extends Site_controller {
     });
 
     if ($create)
-      return $this->_error (true, array ('modify', $pic->token), '新增成功！');
+      return $this->_error (true, array (''), '新增成功！');
     else
       return $this->_error (false, array ('uploads', 'single'), '新增失敗！');
   }
