@@ -87,4 +87,18 @@ class Modify extends Site_controller {
     else
       return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => $pic->is_visibled ? '公開' : '不公開'));
   }
+  public function destroy ($token = 0) {
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, name'))))
+      return redirect_message (array (''), array (
+          '_flash_message' => '當案不存在，或者您的權限不夠喔！'
+        ));
+    
+    $delete = Picture::transaction (function () use ($pic) {
+      return $pic->destroy ();
+    });
+    
+    return redirect_message (array (''), array (
+        '_flash_message' => $delete ? '刪除成功！' : '刪除失敗！'
+      ));
+  }
 }
