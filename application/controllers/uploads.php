@@ -44,7 +44,7 @@ class Uploads extends Site_controller {
       if (!$pic->save ())
         return false;
 
-      delay_job ('pictures', 'update_virtual_versions_color', array ('id' => $pic->id));
+      delay_job ('pictures', 'update_name_virtual_versions_color', array ('id' => $pic->id));
       return true;
     });
 
@@ -170,7 +170,7 @@ class Uploads extends Site_controller {
   //     if (!$pic->save ())
   //       return false;
 
-  //     delay_job ('pictures', 'update_virtual_versions_color', array ('id' => $pic->id));
+  //     delay_job ('pictures', 'update_name_virtual_versions_color', array ('id' => $pic->id));
   //     return true;
   //   });
 

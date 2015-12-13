@@ -92,6 +92,8 @@ class Main extends Site_controller {
     $update = Picture::transaction (function () use ($pic, $file) {
       if (!$pic->cover->put ($file))
         return false;
+      
+      delay_job ('pictures', 'update_cover_virtual_versions_color', array ('id' => $pic->id));
       return true;
     });
 

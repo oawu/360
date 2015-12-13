@@ -66,8 +66,8 @@ class Modify extends Site_controller {
       if (!$pic->save ())
         return false;
 
-      if (is_file ($file))
-        return $pic->cover->put ($file);
+      if (is_file ($file) && $pic->cover->put ($file))
+        delay_job ('pictures', 'update_cover_virtual_versions_color', array ('id' => $pic->id));
 
       return true;
     });

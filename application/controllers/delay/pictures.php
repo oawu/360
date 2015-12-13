@@ -6,7 +6,7 @@
  */
 class Pictures extends Delay_controller {
 
-  public function update_virtual_versions_color () {
+  public function update_name_virtual_versions_color () {
     if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, name, color_r, color_g, color_b')))))
       return ;
 
@@ -14,5 +14,15 @@ class Pictures extends Delay_controller {
 
     foreach ($picture->name->virtualVersions () as $key => $version)
       $picture->name->save_as ($key, $version);
+
+    foreach ($picture->cover->virtualVersions () as $key => $version)
+      $picture->cover->save_as ($key, $version);
+  }
+  public function update_cover_virtual_versions_color () {
+    if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, cover')))))
+      return ;
+
+    foreach ($picture->cover->virtualVersions () as $key => $version)
+      $picture->cover->save_as ($key, $version);
   }
 }
