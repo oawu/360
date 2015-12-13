@@ -7,8 +7,8 @@
         data-url='<?php echo $pic->name->url ('4096w');?>'
         data-color='<?php echo str_replace ('#', '', '000000');?>'>
     </div>
-    <a href='' id='prev' class='icon-chevron-left' title='上一張'></a>
-    <a href='' id='next' class='icon-chevron-right' title='下一張'></a>
+    <a href='<?php echo base_url ($pic->prev ()->token);?>' id='prev' class='icon-chevron-left' title='上一張'></a>
+    <a href='<?php echo base_url ($pic->next ()->token);?>' id='next' class='icon-chevron-right' title='下一張'></a>
     <div id='move' class='icon-move'>試著用拖拉變更視角</div>
 <?php
     if (Session::getData ('user') === 'oa') { ?>
