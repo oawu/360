@@ -11,8 +11,10 @@ class Frame_cell extends Cell_Controller {
   // public function _cache_nav () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function nav () {
-    return $this->load_view ();
+  public function nav ($content = false) {
+    return $this->load_view (array (
+        'content' => $content
+      ));
   }
 
   /* render_cell ('frame_cell', 'pagination', $pagination); */

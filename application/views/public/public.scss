@@ -63,7 +63,6 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
   display: none;
 }
 
-
 .icon-move:before {
   content: "\e900";
 }
@@ -102,6 +101,9 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 }
 .icon-mail-forward:before {
   content: "\e632";
+}
+.icon-arrow-left:before {
+  content: "\e634";
 }
 .icon-eye:before {
   content: "\e803";

@@ -26,6 +26,20 @@ nav {
     display: inline-block;
     padding: 3px 5px;
     margin: 5px;
+
+    &.back {
+      font-size: 30px;
+      font-weight: normal;
+      padding: 0 5px;
+      @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+        + a {
+          display: none;
+        }
+      }
+      @media screen and (min-width: $mediaMobileWidth) {
+        display: none;
+      }
+    }
     
     &:hover {
       font-weight: bold;
