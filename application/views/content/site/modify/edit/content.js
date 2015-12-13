@@ -9,6 +9,14 @@ $(function () {
   var ball = $ball.get (0);
   var $move = $('#move');
 
+  $(window).resize (function () {
+    var d = Math.min ($(window).width (), $(window).height ());
+    $ball.css ({
+      width: $(window).width () >= d * 1.25 ? d * 1.25 : d,
+      height: d
+    });
+  }).resize ();
+
   ball.viewer = new ThetaViewer (ball, function (position) {
     ball.viewer.position = {
       x: position.x,
