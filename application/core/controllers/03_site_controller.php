@@ -55,10 +55,10 @@ class Site_controller extends Oa_controller {
                 ->add_meta (array ('property' => 'og:locale:alternate', 'content' => 'en_US'))
                 ->add_meta (array ('property' => 'og:type', 'content' => 'city'))
 
-                ->add_meta (array ('property' => 'og:image', 'content' => '', 'alt' => Cfg::setting ('site', 'main', 'title')))
-                ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/jpeg'))
-                ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
-                ->add_meta (array ('property' => 'og:image:height', 'content' => '630'))
+                ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => '', 'alt' => Cfg::setting ('site', 'main', 'title')))
+                ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/jpeg'))
+                ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+                ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
     ;
   }
 
