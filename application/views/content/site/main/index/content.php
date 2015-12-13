@@ -22,7 +22,7 @@
 <?php } else { ?>
         <div class='btns n3'>
 <?php } ?>
-        <a title='取得鏈結網址' class='icon-link' data-url='<?php echo base_url ('link', $picture->token);?>'></a>
+        <a title='取得鏈結網址' class='icon-link' data-url='<?php echo base_url ($picture->token);?>'></a>
         <a title='檢視地圖位置'<?php echo !$picture->location () ? ' disabled': '';?> class='icon-location' data-url='<?php echo base_url ('location', $picture->token);?>'></a>
         <a title='分享至臉書' class='icon-mail-forward' data-url='<?php echo base_url ($picture->token);?>'></a>
       </div>
