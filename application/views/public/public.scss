@@ -67,6 +67,12 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-move:before {
   content: "\e900";
 }
+.icon-eye2:before {
+  content: "\e903";
+}
+.icon-lock:before {
+  content: "\f06a";
+}
 .icon-warning:before {
   content: "\e902";
 }
