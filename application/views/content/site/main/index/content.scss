@@ -63,6 +63,41 @@ body {
       @include border-radius(50%);
       @include box-shadow(inset 0 0 10px 2px rgba(0, 0, 0, 1), 0 0 5px rgba(0, 0, 0, 1));
     }
+    .views {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      color: rgba(255, 255, 255, .5);
+      border: 1px solid rgba(255, 255, 255, .3);
+      background-color: rgba(0, 0, 0, 1);
+      padding: 2px 5px;
+      z-index: 10;
+      @include border-radius(10px);
+      font-size: 12px;
+
+      &:before {
+        display: inline-block;
+        margin-right: 3px;
+        font-size: 14px;
+      }
+    }
+    .lock {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      line-height: 26px;
+      color: rgba(255, 188, 0, .8);
+      padding: 2px 5px;
+      z-index: 10;
+      font-size: 20px;
+      border: 1px solid rgba(255, 188, 0, .6);
+      background-color: rgba(0, 0, 0, 1);
+      @include border-radius(50%);
+      
+    }
     .btns {
       padding: 10px 5px;
       @include clearfix();
@@ -86,9 +121,41 @@ body {
         background-color: rgba(0, 0, 0, .7);
         cursor: pointer;
         @include border-radius(3px);
-
+        
+        &[disabled] {
+          cursor: not-allowed;
+          color: rgba(255, 255, 255, .2);
+          border-color: rgba(255, 255, 255, .2);
+          &:hover {
+            border-color: rgba(255, 255, 255, .2);
+          }
+        }
         &:hover {
           border-color: rgba(255, 255, 255, 1);
+          &.h {
+            &:after {
+              border: 1px solid rgba(255, 255, 255, 1);
+              background-color: rgba(200, 200, 200, 1);
+            }
+          }
+        }
+        &.h {
+          position: relative;
+          $d: 15px;
+          &:after {
+            content: '';
+            position: absolute;
+            right: -#{$d / 2 - 1px};
+            top: -#{$d / 2 - 1px};
+            display: inline-block;
+            width: $d;
+            height: $d;
+            border: 1px solid rgba(127, 127, 127, 1);
+            background-color: rgba(100, 100, 100, 1);
+            @include transition(all .3s);
+            @include border-radius(50%);
+            
+          }
         }
       }
     }

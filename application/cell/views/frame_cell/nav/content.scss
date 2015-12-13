@@ -16,8 +16,8 @@ nav {
   height: $height;
   z-index: 999;
 
-  background-color: rgba(255, 255, 255, .55);
-  @include box-shadow(0 5px 5px 2px rgba(39, 40, 34, .1), 0 1px 1px rgba(39, 40, 34, .25));
+  background-color: rgba(0, 0, 0, .7);
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
   @include clearfix();
 
   a {
@@ -32,6 +32,22 @@ nav {
     }
     &:last-child {
       float: right;
+    }
+    &.active {
+      position: relative;
+
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+        height: 5px;
+        position: absolute;
+        bottom: -9px;
+        left: 0;
+        background-color: rgba(0, 0, 0, 1);
+        border: 1px solid rgba(187, 187, 187, 1);
+        @include border-radius(2px);
+      }
     }
   }
 }

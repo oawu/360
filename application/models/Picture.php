@@ -104,4 +104,9 @@ class Picture extends OaModel {
 
     return $this->save ();
   }
+  public function location () {
+    if (!(isset ($this->latitude) && isset ($this->longitude) && ($this->latitude != -1) && ($this->longitude != -1)))
+      return false;
+    return true;
+  }
 }

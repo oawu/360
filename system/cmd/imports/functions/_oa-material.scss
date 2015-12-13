@@ -432,6 +432,7 @@
       @include transition(all .5s cubic-bezier(0.375, -0.600, 0.000, 1.520));
 
       &:before, &:after {
+        @include transition(all .3s);
         @include box-sizing(border-box);
       }
       &:before {
@@ -481,95 +482,188 @@
       }
     }
   }
-
-  $value: map-get($btns, $color);
-
-  @if($full) {
-    input[type='checkbox'] {
-      ~ span {
-        &:before {
-          top: calc(50% - #{$buttonWeight / 2});
-          height: $buttonWeight;
-        }
-        &:after {
-          left: 0;
-
-          @include box-shadow(
-            inset -1px -1px 1px rgba(0, 0, 0, 0.2),
-            inset 1px 1px 1px rgba(255, 255, 255, 0.2));
-          }
-      }
-
-      &:checked {
+  @if $color == 'black' {
+    $value: map-get($btns, $color);
+    @if($full) {
+      input[type='checkbox'] {
         ~ span {
+          &:before {
+            top: calc(50% - #{$buttonWeight / 2});
+            height: $buttonWeight;
+          }
           &:after {
-            left: 0 + $switchWidth - $buttonWeight;
+            left: 0;
+            @include box-shadow(none);
+          }
+        }
+
+        &:checked {
+          ~ span {
+            &:after {
+              left: 0 + $switchWidth - $buttonWeight;
+            }
           }
         }
       }
-    }
-    @if($value) {
       input[type='checkbox'] {
         &[disabled] {
           ~ span {
             &:before {
-              background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 1);
+              background-color: rgba(20, 20, 20, 1);
+              border: 1px solid rgba(35, 35, 35, 1);
             }
             &:after {
-              background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 0.9);
+              background-color: rgba(18, 18, 18, 1);
+              border: 1px solid rgba(52, 52, 52, 1);
             }
           }
         }
         &:checked {
           ~ span {
             &:before {
-              background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 0.8);
-            }
-            &:after {
-              background-color: rgba(nth($value, 1) - 25, nth($value, 2) - 25, nth($value, 3) - 25, 1);
+              background-color: rgba(35, 35, 35, 1);
             }
           }
         }
         ~ span {
           &:before {
-            background-color: rgba(nth($value, 1) + 75, nth($value, 2) + 75, nth($value, 3) + 75, 0.8);
+            border: 1px solid rgba(255, 255, 255, .5);
+            background-color: rgba(100, 100, 100, 1);
           }
           &:after {
-            background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 1);
+            border: 1px solid rgba(255, 255, 255, .5);
+            background-color: rgba(10, 10, 10, 1);
           }
         }
       }
-    }
-  }
-  @else {
-    @if($value) {
+    } @else {
+      input[type='checkbox'] {
+        ~ span {
+          &:after {
+            @include box-shadow(none);
+          }
+        }
+      }
       input[type='checkbox'] {
         &[disabled] {
           ~ span {
             &:before {
-              background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 1);
+              background-color: rgba(20, 20, 20, 1);
+              border: 1px solid rgba(35, 35, 35, 1);
             }
             &:after {
-              background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 0.9);
+              background-color: rgba(18, 18, 18, 1);
+              border: 1px solid rgba(52, 52, 52, 1);
             }
           }
         }
         &:checked {
           ~ span {
             &:before {
-              background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 0.8);
-            }
-            &:after {
-              background-color: rgba(nth($value, 1) - 25, nth($value, 2) - 25, nth($value, 3) - 25, 1);
+              background-color: rgba(35, 35, 35, 1);
             }
           }
         }
         ~ span {
           &:before {
-            background-color: rgba(nth($value, 1) + 75, nth($value, 2) + 75, nth($value, 3) + 75, 0.8);
+            border: 1px solid rgba(255, 255, 255, .5);
+            background-color: rgba(100, 100, 100, 1);
           }
           &:after {
-            background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 1);
+            border: 1px solid rgba(255, 255, 255, .5);
+            background-color: rgba(10, 10, 10, 1);
+          }
+        }
+      }
+    }
+  } @else {
+    $value: map-get($btns, $color);
+    @if($full) {
+      input[type='checkbox'] {
+        ~ span {
+          &:before {
+            top: calc(50% - #{$buttonWeight / 2});
+            height: $buttonWeight;
+          }
+          &:after {
+            left: 0;
+
+            @include box-shadow(
+              inset -1px -1px 1px rgba(0, 0, 0, 0.2),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.2));
+            }
+        }
+
+        &:checked {
+          ~ span {
+            &:after {
+              left: 0 + $switchWidth - $buttonWeight;
+            }
+          }
+        }
+      }
+      @if($value) {
+        input[type='checkbox'] {
+          &[disabled] {
+            ~ span {
+              &:before {
+                background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 1);
+              }
+              &:after {
+                background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 0.9);
+              }
+            }
+          }
+          &:checked {
+            ~ span {
+              &:before {
+                background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 0.8);
+              }
+              &:after {
+                background-color: rgba(nth($value, 1) - 25, nth($value, 2) - 25, nth($value, 3) - 25, 1);
+              }
+            }
+          }
+          ~ span {
+            &:before {
+              background-color: rgba(nth($value, 1) + 75, nth($value, 2) + 75, nth($value, 3) + 75, 0.8);
+            }
+            &:after {
+              background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 1);
+            }
+          }
+        }
+      }
+    } @else {
+      @if($value) {
+        input[type='checkbox'] {
+          &[disabled] {
+            ~ span {
+              &:before {
+                background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 1);
+              }
+              &:after {
+                background-color: rgba(nth($value, 1) + 125, nth($value, 2) + 125, nth($value, 3) + 125, 0.9);
+              }
+            }
+          }
+          &:checked {
+            ~ span {
+              &:before {
+                background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 0.8);
+              }
+              &:after {
+                background-color: rgba(nth($value, 1) - 25, nth($value, 2) - 25, nth($value, 3) - 25, 1);
+              }
+            }
+          }
+          ~ span {
+            &:before {
+              background-color: rgba(nth($value, 1) + 75, nth($value, 2) + 75, nth($value, 3) + 75, 0.8);
+            }
+            &:after {
+              background-color: rgba(nth($value, 1) + 25, nth($value, 2) + 25, nth($value, 3) + 25, 1);
+            }
           }
         }
       }

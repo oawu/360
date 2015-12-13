@@ -20,19 +20,20 @@ $(function () {
     that.viewer.images = [$(this).data ('url')];
     that.viewer.load (function () {
       if (!($this.data ('cover') && $this.data ('cover').length))
-        uploadCover ($this.data ('cover_url'), $this.find ('canvas').get (0).toDataURL ());
+        uploadCover ($this.data ('token'), $this.find ('canvas').get (0).toDataURL ());
     });
   });
 
   $('.icon-location').click (function () {
-    $.fancybox ({
-        href: $(this).data ('url'),
-        type: 'iframe',
-        padding: 0,
-        margin: 30,
-        width: '100%',
-        maxWidth: '1200',
-    });
+    if (!$(this).attr ('disabled'))
+      $.fancybox ({
+          href: $(this).data ('url'),
+          type: 'iframe',
+          padding: 0,
+          margin: 30,
+          width: '100%',
+          maxWidth: '1200',
+      });
   });
 
   $('.icon-mail-forward').click (function () {

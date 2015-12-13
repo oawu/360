@@ -1,0 +1,131 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+ul.pagination {
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  list-style-type: none;
+  @include clearfix();
+
+  li {
+    float: left;
+    margin: 5px;
+    &.l, &.f, &.p, &.n {
+      a {
+        padding: 0 10px;
+      }
+    }
+    a {
+      display: inline-block;
+      padding: 0 5px;
+      min-width: 30px;
+      line-height: 28px;
+
+      color: rgba(95, 95, 95, 1);
+      background-color: rgba(0, 0, 0, 1);
+      border: 1px solid rgba(193, 194, 198, 1);
+      font-size: 14px;
+      font-weight: bold;
+
+      text-decoration: none;
+      text-align: center;
+
+      @include transition(all .3s);
+      @include border-radius(20px);
+
+      &:hover {
+        border: 1px solid rgba(193, 194, 198, 1);
+        background-color: rgba(193, 194, 198, 1);
+        color: rgba(39, 40, 34, 1);
+      }
+    }
+    &.active {
+      a {
+        border: 1px solid rgba(193, 194, 198, 1);
+        background-color: rgba(193, 194, 198, 1);
+        color: rgba(39, 40, 34, 1);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: #{450px - 1px}) {
+  ul.pagination {
+    position: relative;
+    padding-top: 30px;
+
+    li {
+      &.p, &.n {
+        position: absolute;
+        top: 0;
+        color: rgba(255, 255, 255, 0.5);
+
+        &:before {
+          font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
+          position: absolute;
+          top: 5px;
+          font-size: 16px;
+          width: 15px;
+          @include transition(all .3s);
+        }
+        &:hover {
+          color: rgba(255, 255, 255, 1);
+        }
+        a {
+          border: 0;
+          background-color: rgba(255, 255, 255, 0);
+          width: 100%;
+          @include border-radius(0);
+          @include a(1px, true, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1));
+          padding: 0 10px;
+
+          &:hover {
+            border: 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 1) !important;
+          }
+        }
+      }
+      &.p {
+        left: 0;
+        text-align: left;
+        padding-left: 10px;
+
+        &:before {
+          content: "\e60b";
+          left: 0;
+        }
+      }
+      &.n {
+        right: 0;
+        text-align: right;
+        padding-right: 10px;
+
+        &:before {
+          content: "\e60a";
+          right: 0;
+        }
+      }
+      &:not(.p):not(.n) {
+        display: none;
+      }
+      a {
+        font-size: 15px;
+      }
+    } 
+  } 
+}
+@media screen and (min-width: 450px) and (max-width: #{590px - 1px}) {
+  ul.pagination {
+    li {
+      &.f, &.l {
+        display: none;
+      }      
+    }
+  }
+}

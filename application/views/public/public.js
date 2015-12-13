@@ -20,32 +20,48 @@ window.ajaxError = function (result) {
   console.error (result.responseText);
 };
 
-function uploadCoverPosition (url, cover, position, callback) {
-  $.ajax ({
-    url: url,
-    data: {
-      cover: cover,
-      position: position,
-    },
-    async: true, cache: false, dataType: 'json', type: 'post',
-    beforeSend: function () { }
-  })
-  .done (callback ? callback : function (result) { })
-  .fail (function (result) { ajaxError (result); })
-  .complete (function (result) { });
+function uploadVisibled (token, status, callback) {
+  if ($('#visibled_url').val ())
+    $.ajax ({
+      url: $('#visibled_url').val () + '/' + token,
+      data: {
+        is_visibled: status ? 1 : 0,
+      },
+      async: true, cache: false, dataType: 'json', type: 'post',
+      beforeSend: function () { }
+    })
+    .done (callback ? callback : function (result) { })
+    .fail (function (result) { ajaxError (result); })
+    .complete (function (result) { });
 }
-function uploadCover (url, cover, callback) {
-  $.ajax ({
-    url: url,
-    data: {
-      cover: cover
-    },
-    async: true, cache: false, dataType: 'json', type: 'post',
-    beforeSend: function () { }
-  })
-  .done (callback ? callback : function (result) { })
-  .fail (function (result) { ajaxError (result); })
-  .complete (function (result) { });
+function uploadCoverPosition (token, cover, position, callback) {
+  if ($('#cover_position_url').val ())
+    $.ajax ({
+      url: $('#cover_position_url').val () + '/' + token,
+      data: {
+        cover: cover,
+        position: position,
+      },
+      async: true, cache: false, dataType: 'json', type: 'post',
+      beforeSend: function () { }
+    })
+    .done (callback ? callback : function (result) { })
+    .fail (function (result) { ajaxError (result); })
+    .complete (function (result) { });
+}
+function uploadCover (token, cover, callback) {
+  if ($('#cover_url').val ())
+    $.ajax ({
+      url: $('#cover_url').val () + '/' + token,
+      data: {
+        cover: cover
+      },
+      async: true, cache: false, dataType: 'json', type: 'post',
+      beforeSend: function () { }
+    })
+    .done (callback ? callback : function (result) { })
+    .fail (function (result) { ajaxError (result); })
+    .complete (function (result) { });
 }
 
 $(function () {

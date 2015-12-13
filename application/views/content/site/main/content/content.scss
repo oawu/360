@@ -77,6 +77,59 @@ html {
     100% { @include opacity(0); }
   }
 }
+#cover {
+  @include button('black');
+  font-weight: normal;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  display: inline-block;
+  font-size: 25px;
+  padding: 5px 10px;
+  color: rgba(255, 255, 255, .5);
+  border: 1px solid rgba(255, 255, 255, .5);
+  background-color: rgba(0, 0, 0, .7);
+  cursor: pointer;
+  @include border-radius(3px);
+  
+  &:hover {
+    border-color: rgba(255, 255, 255, 1);
+  }
+}
+#border {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px dashed rgba(255, 255, 255, 1);
+  @include border-radius(50%);
+}
+
+label[for='visibled'] {
+  @include switch(true, 'black');
+  font-weight: normal;
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  padding: 0 5px;
+  background-color: rgba(0, 0, 0, .7);
+  @include border-radius(3px);
+  cursor: pointer;
+  color: rgba(255, 255, 255, .5);
+  input {
+    &[disabled] {
+      ~ div {
+        cursor: not-allowed;
+      } 
+    }
+  }
+  > div {
+    display: inline-block;
+  }
+}
 #warning {
   $h: 140px;
   $w: 250px;

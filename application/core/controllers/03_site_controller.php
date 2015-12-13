@@ -21,9 +21,18 @@ class Site_controller extends Oa_controller {
          ->_add_meta ()
          ->_add_css ()
          ->_add_js ()
+         ->_add_hidden ()
          ;
   }
 
+  private function _add_hidden () {
+    $this->add_hidden (array ('id' => 'cover_url', 'value' => base_url ('cover')))
+         ->add_hidden (array ('id' => 'visibled_url', 'value' => Session::getData ('user') === 'oa' ? base_url ('modify', 'visibled') : base_url ()))
+         ->add_hidden (array ('id' => 'cover_position_url', 'value' => Session::getData ('user') === 'oa' ? base_url ('modify', 'cover_position') : base_url ()));
+
+
+    return $this;
+  }
   private function _add_meta () {
     return $this->add_meta (array ('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'))
 

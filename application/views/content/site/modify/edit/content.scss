@@ -18,11 +18,34 @@ html {
   cursor: move;
   height: 100%;
 }
+label[for='visibled'] {
+  @include switch(true, 'black');
+  font-weight: normal;
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  padding: 0 5px;
+  background-color: rgba(0, 0, 0, .7);
+  @include border-radius(3px);
+  cursor: pointer;
+  color: rgba(255, 255, 255, .5);
+  input {
+    &[disabled] {
+      ~ div {
+        cursor: not-allowed;
+      } 
+    }
+  }
+  > div {
+    display: inline-block;
+  }
+}
 #cover {
   @include button('black');
   font-weight: normal;
   position: absolute;
-  bottom: 10px;
+  top: 50px;
   right: 10px;
   display: inline-block;
   font-size: 25px;
