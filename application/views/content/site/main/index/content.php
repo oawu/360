@@ -5,7 +5,7 @@
 <?php if (!(string)$picture->cover) { ?>
         <div class='obj'
              data-cover='<?php echo $picture->cover;?>' 
-             data-token='<?php echo $pic->token;?>'
+             data-token='<?php echo $picture->token;?>'
              data-position='<?php echo json_encode ($picture->position ());?>' 
              data-url='<?php echo $picture->name->url ('1024w');?>' 
              data-color='<?php echo str_replace ('#', '', '000000');?>'></div>

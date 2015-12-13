@@ -11,9 +11,16 @@ class Frame_cell extends Cell_Controller {
   // public function _cache_nav () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function nav ($content = false) {
+  public function nav ($back = false) {
+    if ($back && ($back_url = Session::getData ('back_url')))
+      Session::setData ('back_url', $back_url);
+    else if ($back && isset ($_SERVER['HTTP_REFERER']) && preg_match ('#^' . base_url ('[0-9]?') . '$#', $back_url = $_SERVER['HTTP_REFERER']))
+      Session::setData ('back_url', $back_url);
+    else
+      Session::setData ('back_url', $back_url = '');
+
     return $this->load_view (array (
-        'content' => $content
+        'back_url' => $back_url
       ));
   }
 
