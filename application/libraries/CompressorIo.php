@@ -8,7 +8,7 @@
 class CompressorIo {
   const URL = 'https://compressor.io/server/Lossy.php';
   static $tempDir = array ('temp');
-  const CURLOPT_TIMEOUT = 60 * 5;
+  const CURLOPT_TIMEOUT = 300;
   const CURLOPT_USERAGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36';
 
   public function __construct () {}
