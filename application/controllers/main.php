@@ -6,7 +6,12 @@
  */
 
 class Main extends Site_controller {
-
+  public function x ($token = 0) {
+    foreach (Picture::all () as $pic) {
+      $pic->name->compressor ();
+      $pic->cover->compressor ();
+    }
+  }
   public function content ($token = 0) {
     if (!($pic = Picture::find_by_token ($token)))
       return redirect_message (array (''), array (
@@ -20,7 +25,7 @@ class Main extends Site_controller {
         '600x600c' => 'story',
         '200x200c' => 'mini',
       );
-    foreach ($pic->cover->virtualVersions () as $key => $version) {
+    foreach ($pic->cover->getVirtualVersions () as $key => $version) {
       $size = count (array_filter ($size = preg_split ('/[xX]/', preg_replace ('/[^\dx]/', '', '1200x630c')), function ($t) { return is_numeric ($t); })) == 2 ? $size : array ();
 
       if (!preg_match ('/^data:/', $og_img = $pic->cover->url ($key)))
