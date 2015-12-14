@@ -26,6 +26,7 @@ class Modify extends Site_controller {
                 ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
                 ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
                 ->load_view (array (
+                    'footer' => false,
                     'pic' => $pic
                   ));
   }
