@@ -7,7 +7,7 @@
 
 class CompressorIo {
   const URL = 'https://compressor.io/server/Lossy.php';
-  const TEMP_DIR = array ('temp');
+  static $tempDir = array ('temp');
   const CURLOPT_TIMEOUT = 60 * 5;
   const CURLOPT_USERAGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36';
 
@@ -137,7 +137,7 @@ class CompressorIo {
   public static function download ($datas, $cookies, $originName = false) {
     $result = array ();
     foreach ($datas as $key => $value)
-      $result[$key] = $value ? self::_getFile ($value, $cookies, $originName ? ($key) : (FCPATH . implode (DIRECTORY_SEPARATOR, CompressorIo::TEMP_DIR) . DIRECTORY_SEPARATOR . uniqid (rand () . '_') . '.' . pathinfo ($key, PATHINFO_EXTENSION))) : '';
+      $result[$key] = $value ? self::_getFile ($value, $cookies, $originName ? ($key) : (FCPATH . implode (DIRECTORY_SEPARATOR, CompressorIo::$tempDir) . DIRECTORY_SEPARATOR . uniqid (rand () . '_') . '.' . pathinfo ($key, PATHINFO_EXTENSION))) : '';
     return $result;
   }
 
