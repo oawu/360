@@ -11,7 +11,7 @@
     <a href='<?php echo base_url ($pic->prev ()->token);?>' id='prev' class='icon-chevron-left' title='上一張'></a>
     <a href='<?php echo base_url ($pic->next ()->token);?>' id='next' class='icon-chevron-right' title='下一張'></a>
     <div id='move' class='icon-move'>試著用拖拉變更視角</div>
-    <button id='share' class='icon-share2' title='分享至臉書'></button>
+    <button id='share' class='icon-share2' title='分享至臉書' data-url='<?php echo base_url ($pic->token);?>'></button>
 <?php
     if (Session::getData ('user') === 'oa') { ?>
       <button id='cover' title='確認視角'>確認視角</button>
