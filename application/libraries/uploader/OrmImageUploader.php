@@ -23,7 +23,7 @@ class OrmImageUploader extends OrmUploader {
     return $this->configs['d4_url'];
   }
   // return array
-  protected function virtualVersions () {
+  protected function getVirtualVersions () {
     return array ();
   }
   // return array
@@ -32,7 +32,7 @@ class OrmImageUploader extends OrmUploader {
   }
   // return array
   public function path ($key = '') {
-    if (($versions = ($versions = array_merge ($this->getVersions (), $this->virtualVersions ())) ? $versions : $this->configs['default_version']) && isset ($versions[$key]) && ($fileName = $key . $this->configs['separate_symbol'] . $this->getValue ()))
+    if (($versions = ($versions = array_merge ($this->getVersions (), $this->getVirtualVersions ())) ? $versions : $this->configs['default_version']) && isset ($versions[$key]) && ($fileName = $key . $this->configs['separate_symbol'] . $this->getValue ()))
       return parent::path ($fileName);
     else
       return array ();
@@ -123,6 +123,48 @@ class OrmImageUploader extends OrmUploader {
     }
 
     return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : false;
+  }
+  // return boolean
+  public function compressor ($exceptionVersion = array (''), $includeVirtual = true) {
+    if ($this->error)
+      return $this->getDebug () ? call_user_func_array ('error', $this->error) : array ();
+
+    $versions = array_merge ($this->getVersions (), $includeVirtual ? $this->getVirtualVersions () : array ());
+    if ($exceptionVersion)
+      foreach ($versions as $key => $value)
+        if (in_array ($key, $exceptionVersion))
+          unset ($versions[$key]);
+
+    $files = array ();
+    foreach ($versions as $key => $version)
+      $files[$name = $key . $this->configs['separate_symbol'] . $this->getValue ()] = download_web_file ($this->url ($key), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge ($this->getTempDirectory (), array ($name))));
+
+    if (!($files = array_filter ($files)))
+      return true;
+
+    $this->CI->load->library ('CompressorIo');
+    $files = CompressorIo::postAndDownload ($files, true);
+
+    switch ($this->getDriver ()) {
+      case 'local':
+        $path = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
+        foreach ($files as $file)
+          if (file_exists ($file) && is_writable ($file))
+            @rename ($file, $path . pathinfo ($file, PATHINFO_BASENAME));
+        return true;
+        break;
+
+      case 's3':
+        $path = implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
+
+        foreach ($files as $file)
+          if (file_exists ($file) && is_writable ($file))
+            if (!(S3::putObjectFile ($file, $this->getS3Bucket (), $path . pathinfo ($file, PATHINFO_BASENAME), S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years')))) && @unlink ($file)))
+              return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '不明原因錯誤！', '請程式設計者確認狀況！') : false;
+        return true;
+        break;
+    }
+    return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : array ();
   }
   // return array
   public function save_as ($key, $version) {

@@ -12,17 +12,23 @@ class Pictures extends Delay_controller {
 
     $picture->update_color ();
 
-    foreach ($picture->name->virtualVersions () as $key => $version)
+    foreach ($picture->name->getVirtualVersions () as $key => $version)
       $picture->name->save_as ($key, $version);
 
-    foreach ($picture->cover->virtualVersions () as $key => $version)
+
+    foreach ($picture->cover->getVirtualVersions () as $key => $version)
       $picture->cover->save_as ($key, $version);
+   
+    $picture->name->compressor ();
+    $picture->cover->compressor ();
   }
   public function update_cover_virtual_versions_color () {
     if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, cover')))))
       return ;
 
-    foreach ($picture->cover->virtualVersions () as $key => $version)
+    foreach ($picture->cover->getVirtualVersions () as $key => $version)
       $picture->cover->save_as ($key, $version);
+
+    $picture->cover->compressor ();
   }
 }
