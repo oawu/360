@@ -4,6 +4,7 @@
  */
 function readURL (input, $img) {
   $img.attr ('src', '').removeClass ('o');
+
   var $label = $img.parent ().attr ('data-loading', '圖片讀取中..').css ({
     'background-image': ''
   }).removeClass ('s');
@@ -26,6 +27,10 @@ $(function () {
   var $picture = $('#picture').change (function () {
     $(this).parent ().attr ('data-path', $(this).val ().split (/(\\|\/)/g).pop ());
     readURL (this, $('#img'));
+  });
+  $('button[type="submit"]').click (function () {
+    $(this).prop ('disabled', true).text ('上傳中..');
+    $('#form').submit ();
   });
   $('button[type="reset"]').click (function () {
     $picture.val ('').change ();
