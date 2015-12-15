@@ -7,7 +7,7 @@
              data-cover='<?php echo $picture->cover;?>' 
              data-token='<?php echo $picture->token;?>'
              data-position='<?php echo json_encode ($picture->position ());?>' 
-             data-url='<?php echo !preg_match ('/^data:/', $og_img = $picture->name->url ('1024w')) ? $picture->name->url ('1024w') : $picture->name->url () ;?>' 
+             data-url='<?php echo !preg_match ('/^data:/', $p->name->url ('4096w')) ? $p->name->url ('4096w') : $p->name->url ();?>' 
              data-color='<?php echo str_replace ('#', '', '000000');?>'></div>
         <a href='<?php echo base_url ($picture->token);?>' class='border'></a>
 <?php } else {?>
