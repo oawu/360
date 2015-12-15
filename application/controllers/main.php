@@ -7,10 +7,25 @@
 
 class Main extends Site_controller {
   public function x ($token = 0) {
-    foreach (Picture::all () as $pic) {
-      $pic->name->compressor ();
-      $pic->cover->compressor ();
-    }
+    // $this->load->library ('Tinypng');
+    // // $key = Tinypng::key ();
+
+    // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+    // var_dump (Tinypng::subQuota ());
+    // exit ();;
+    // exit ();
+    $pic = Picture::first ();
+    // $pic->cover->put_url ('http://pic.360.ioa.tw/upload/pictures/cover/0/0/0/16/_114441816_566e1f5959844.png');
+
+    // foreach ($pic->cover->getVirtualVersions () as $key => $version)
+    //   $pic->cover->save_as ($key, $version);
+
+    $pic->cover->compressor ();
+
+    // foreach (Picture::all () as $pic) {
+    //   $pic->name->compressor ();
+    //   $pic->cover->compressor ();
+    // }
   }
   public function content ($token = 0) {
     if (!($pic = Picture::find_by_token ($token)))
