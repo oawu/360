@@ -52,7 +52,7 @@ class OrmImageUploader extends OrmUploader {
     if ($this->error)
       return $this->getDebug () ? call_user_func_array ('error', $this->error) : array ();
 
-    if (!($versions = ($versions = $this->getVersions ()) ? $versions : $this->configs['default_version']))
+    if (!($versions = ($versions = array_merge ($this->getVersions (), $this->getVirtualVersions ())) ? $versions : $this->configs['default_version']))
       return $this->getDebug () ? error ('OrmImageUploader 錯誤！', 'Versions 格式錯誤，請檢查 getVersions () 或者 default_version！', '預設值 default_version 請檢查 config/system/orm_uploader.php 設定檔！') : '';
 
     $paths = array ();
