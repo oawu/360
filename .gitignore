@@ -14,12 +14,14 @@ application/logs/*
 application/config/database.php
 application/config/system/orm_uploader.php
 application/config/system/s3.php
+application/config/setting/tinypng.php
 
 temp/*
 
 upload/*
 
 assets/*
+vendor/*
 
 /cmd
 
