@@ -15,7 +15,8 @@ class Pictures extends Delay_controller {
     foreach ($picture->name->getVirtualVersions () as $key => $version)
       $picture->name->save_as ($key, $version);
 
-    $picture->name->compressor ();
+    if (ENVIRONMENT == 'development')
+      $picture->name->compressor ();
   }
   public function update_cover_virtual_versions_color () {
     if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, cover')))))
@@ -24,6 +25,7 @@ class Pictures extends Delay_controller {
     foreach ($picture->cover->getVirtualVersions () as $key => $version)
       $picture->cover->save_as ($key, $version);
 
-    $picture->cover->compressor ();
+    if (ENVIRONMENT == 'development')
+      $picture->cover->compressor ();
   }
 }
