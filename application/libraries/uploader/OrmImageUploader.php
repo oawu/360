@@ -147,44 +147,60 @@ class OrmImageUploader extends OrmUploader {
     try {
       $this->CI->load->library ('Tinypng');
       require_once ('vendor/autoload.php');
+
+
       $info = Tinypng::key ();
       \Tinify\setKey ($info['key']);
       \Tinify\validate ();
 
-      foreach ($files as $file) {
-        if (($source = \Tinify\fromFile ($file)) && $source->toFile ($file))
-          array_push ($newFiles, $file);
+      switch ($this->getDriver ()) {
+        case 'local':
 
-        $info['quota'] -= 1;
-        Tinypng::updateQuota ($info);
+          foreach ($files as $file) {
+            if (($source = \Tinify\fromFile ($file)) && $source->toFile ($file))
+              array_push ($newFiles, $file);
 
-        if ($info['quota'] <= 0) {
-          $info = Tinypng::key ();
-          \Tinify\setKey ($info['key']);
-          \Tinify\validate ();
-        }
-      }
-    } catch (Exception $e) { }
+            $info['quota'] -= 1;
+            Tinypng::updateQuota ($info);
 
-    switch ($this->getDriver ()) {
-      case 'local':
-        $path = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
-        foreach ($files as $file)
-          if (file_exists ($file) && is_writable ($file))
-            @rename ($file, $path . pathinfo ($file, PATHINFO_BASENAME));
-        return true;
-        break;
+            if ($info['quota'] <= 0) {
+              $info = Tinypng::key ();
+              \Tinify\setKey ($info['key']);
+              \Tinify\validate ();
+            }
+          }
 
-      case 's3':
-        $path = implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
+          $path = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
+          foreach ($files as $file)
+            if (file_exists ($file) && is_writable ($file))
+              @rename ($file, $path . pathinfo ($file, PATHINFO_BASENAME));
+          return true;
+          break;
 
-        foreach ($files as $file)
-          if (file_exists ($file) && is_writable ($file))
-            if (!(S3::putObjectFile ($file, $this->getS3Bucket (), $path . pathinfo ($file, PATHINFO_BASENAME), S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years')))) && @unlink ($file)))
+        case 's3':
+          $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
+          $path = $bucket . DIRECTORY_SEPARATOR . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
+
+          foreach ($files as $file) {
+            if (!(($source = \Tinify\fromFile ($file)) && ($source->store (array ('service' => 's3', 'aws_access_key_id' => Cfg::system ('s3', 'buckets', $bucket, 'access_key'), 'aws_secret_access_key' => Cfg::system ('s3', 'buckets', $bucket, 'secret_key'), 'region' => Cfg::system ('s3', 'buckets', $bucket, 'region'), 'path' => $path . pathinfo ($file, PATHINFO_BASENAME)))) && (@unlink ($file))))
               return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '不明原因錯誤！', '請程式設計者確認狀況！') : false;
-        return true;
-        break;
+
+            $info['quota'] -= 1;
+            Tinypng::updateQuota ($info);
+
+            if ($info['quota'] <= 0) {
+              $info = Tinypng::key ();
+              \Tinify\setKey ($info['key']);
+              \Tinify\validate ();
+            }
+          }
+          return true;
+          break;
+      }
+    } catch (Exception $e) {
+      return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : array ();
     }
+
     return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : array ();
   }
   // return array
