@@ -15,7 +15,7 @@ class Pictures extends Delay_controller {
     foreach ($picture->name->getVirtualVersions () as $key => $version)
       $picture->name->save_as ($key, $version);
 
-    if (ENVIRONMENT == 'development')
+    if (ENVIRONMENT == 'production')
       $picture->name->compressor ();
   }
   public function update_cover_virtual_versions_color () {
@@ -25,7 +25,7 @@ class Pictures extends Delay_controller {
     foreach ($picture->cover->getVirtualVersions () as $key => $version)
       $picture->cover->save_as ($key, $version);
 
-    if (ENVIRONMENT == 'development')
+    if (ENVIRONMENT == 'production')
       $picture->cover->compressor ();
   }
 }
