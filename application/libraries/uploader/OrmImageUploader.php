@@ -141,9 +141,30 @@ class OrmImageUploader extends OrmUploader {
 
     if (!($files = array_filter ($files)))
       return true;
+    
+    $newFiles = array ();
 
-    $this->CI->load->library ('CompressorIo');
-    $files = CompressorIo::postAndDownload ($files, true);
+    try {
+      $this->CI->load->library ('Tinypng');
+      require_once ('vendor/autoload.php');
+      $info = Tinypng::key ();
+      \Tinify\setKey ($info['key']);
+      \Tinify\validate ();
+
+      foreach ($files as $file) {
+        if (($source = \Tinify\fromFile ($file)) && $source->toFile ($file))
+          array_push ($newFiles, $file);
+
+        $info['quota'] -= 1;
+        Tinypng::updateQuota ($info);
+
+        if ($info['quota'] <= 0) {
+          $info = Tinypng::key ();
+          \Tinify\setKey ($info['key']);
+          \Tinify\validate ();
+        }
+      }
+    } catch (Exception $e) { }
 
     switch ($this->getDriver ()) {
       case 'local':
