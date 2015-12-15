@@ -8,8 +8,10 @@
         data-rotated='<?php echo $pic->is_rotated;?>'
         data-color='<?php echo str_replace ('#', '', '000000');?>'>
     </div>
-    <a href='<?php echo base_url ($pic->prev ()->token);?>' id='prev' class='icon-chevron-left' title='上一張'></a>
-    <a href='<?php echo base_url ($pic->next ()->token);?>' id='next' class='icon-chevron-right' title='下一張'></a>
+<?php
+    if ($pic->prev ()) { ?><a href='<?php echo base_url ($pic->prev ()->token);?>' id='prev' class='icon-chevron-left' title='上一張'></a><?php } ?>
+<?php
+    if ($pic->prev ()) { ?><a href='<?php echo base_url ($pic->next ()->token);?>' id='next' class='icon-chevron-right' title='下一張'></a><?php } ?>
     <div id='move' class='icon-move'>試著用拖拉變更視角</div>
     <button id='share' class='icon-share2' title='分享至臉書' data-url='<?php echo base_url ($pic->token);?>'></button>
 <?php
