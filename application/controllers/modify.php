@@ -49,8 +49,8 @@ class Modify extends Site_controller {
     return '';
   }
   public function cover_position ($token = 0) {
-    if (!$this->is_ajax ())
-      return $this->output_json (array ('status' => false, 'message' => '存取檔案方式錯誤！'));
+    // if (!$this->is_ajax ())
+    //   return $this->output_json (array ('status' => false, 'message' => '存取檔案方式錯誤！'));
 
     if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, cover, x, y, z'))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
