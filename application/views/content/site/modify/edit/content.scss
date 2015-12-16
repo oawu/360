@@ -95,6 +95,9 @@ label[for='rotated'] {
   border: 0;
   @include box-shadow($shadow);
   @include transition(all .3s);
+  &:focus {
+    outline: 0;
+  }
 }
 #views {
   top: 50px;
