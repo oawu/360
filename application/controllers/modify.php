@@ -49,15 +49,15 @@ class Modify extends Site_controller {
     return '';
   }
   public function cover_position ($token = 0) {
-    // if (!$this->is_ajax ())
-    //   return $this->output_json (array ('status' => false, 'message' => '存取檔案方式錯誤！'));
+    if (!$this->is_ajax ())
+      return $this->output_json (array ('status' => false, 'message' => '存取檔案方式錯誤！'));
 
     if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, cover, x, y, z'))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
     
     $posts = OAInput::post ('position');
     $cover = OAInput::post ('cover', false);
-    $cover = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $cover));
+    $cover = base64_decode (preg_replace ('#^data:image/\w+;base64,#i', '', $cover));
     $file = FCPATH . implode (DIRECTORY_SEPARATOR, Cfg::system ('orm_uploader', 'uploader', 'temp_directory')) . DIRECTORY_SEPARATOR . uniqid (rand () . '_');
     file_put_contents ($file, $cover);
 

@@ -11,6 +11,8 @@
   ga('create', 'UA-46121102-21', 'auto');
   ga('send', 'pageview');
 
+window.canvasMaxWidth = 1280;
+
 Array.prototype.column = function (k) {
   return this.map (function (t) { return k ? eval ("t." + k) : t; });
 };

@@ -26,11 +26,19 @@ $(function () {
   }, $ball.data ('position'), $ball.data ('color'), 1, {
       max: 388,
     });
-  // ball.viewer.autoRotate = true;
+
   ball.viewer.images = [$ball.data ('url')];
   ball.viewer.load (function () {
     if (!($ball.data ('cover') && $ball.data ('cover').length))
-      uploadCover ($ball.data ('token'), $ball.find ('canvas').get (0).toDataURL ());
+      if ($ball.find ('canvas').get (0).width > window.canvasMaxWidth) {
+          var canvas = document.createElement ('canvas');
+          canvas.width = window.canvasMaxWidth;
+          canvas.height = (window.canvasMaxWidth / $ball.find ('canvas').get (0).width) * $ball.find ('canvas').get (0).height;
+          canvas.getContext ('2d').drawImage ($ball.find ('canvas').get (0), 0, 0, canvas.width, canvas.height);
+          uploadCover ($ball.data ('token'), canvas.toDataURL ());
+        } else {
+          uploadCover ($ball.data ('token'), $ball.find ('canvas').get (0).toDataURL ());
+        }
   });
   ball.viewer.position = $ball.data ('position');
   
@@ -39,10 +47,19 @@ $(function () {
 
   $('#cover').click (function () {
     $(this).prop ('disabled', true).text ('設定中..');
+    var url = $ball.find ('canvas').get (0).toDataURL ();
+
+    if ($ball.find ('canvas').get (0).width > window.canvasMaxWidth) {
+      var canvas = document.createElement ('canvas');
+      canvas.width = window.canvasMaxWidth;
+      canvas.height = (window.canvasMaxWidth / $ball.find ('canvas').get (0).width) * $ball.find ('canvas').get (0).height;
+      canvas.getContext ('2d').drawImage ($ball.find ('canvas').get (0), 0, 0, canvas.width, canvas.height);
+      url = canvas.toDataURL ();
+    }
 
     uploadCoverPosition (
       $ball.data ('token'),
-      $ball.find ('canvas').get (0).toDataURL (),
+      url,
       ball.viewer.position,
       function (result) {
         $(this).text ($(this).attr ('title')).prop ('disabled', false);

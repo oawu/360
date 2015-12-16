@@ -28,7 +28,15 @@ $(function () {
   ball.viewer.images = [$ball.data ('url')];
   ball.viewer.load (function () {
     if (!($ball.data ('cover') && $ball.data ('cover').length))
-      uploadCover ($ball.data ('token'), $ball.find ('canvas').get (0).toDataURL ());
+      if ($ball.find ('canvas').get (0).width > window.canvasMaxWidth) {
+          var canvas = document.createElement ('canvas');
+          canvas.width = window.canvasMaxWidth;
+          canvas.height = (window.canvasMaxWidth / $ball.find ('canvas').get (0).width) * $ball.find ('canvas').get (0).height;
+          canvas.getContext ('2d').drawImage ($ball.find ('canvas').get (0), 0, 0, canvas.width, canvas.height);
+          uploadCover ($ball.data ('token'), canvas.toDataURL ());
+        } else {
+          uploadCover ($ball.data ('token'), $ball.find ('canvas').get (0).toDataURL ());
+        }
   });
   ball.viewer.position = $ball.data ('position');
   
@@ -38,11 +46,36 @@ $(function () {
   $('#share').click (function () {
     window.open ('https://www.facebook.com/sharer/sharer.php?u=' + $(this).data ('url'), '分享', 'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420,top=100,left=' + (window.screen ? Math.round(screen.width / 2 - 275) : 100));
   });
+
+  var resizeDataUriImage = function (url, width, height, callback) {
+      var sourceImage = new Image();
+
+      sourceImage.onload = function() {
+          // Create a canvas with the desired dimensions
+          var canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(sourceImage, 0, 0, width, height);
+          callback(canvas.toDataURL(), defe);
+      };
+      sourceImage.src = url;
+      return defe;
+  };
   $('#cover').click (function () {
     $(this).prop ('disabled', true).text ('設定中..');
+    var url = $ball.find ('canvas').get (0).toDataURL ();
+
+    if ($ball.find ('canvas').get (0).width > window.canvasMaxWidth) {
+      var canvas = document.createElement ('canvas');
+      canvas.width = window.canvasMaxWidth;
+      canvas.height = (window.canvasMaxWidth / $ball.find ('canvas').get (0).width) * $ball.find ('canvas').get (0).height;
+      canvas.getContext ('2d').drawImage ($ball.find ('canvas').get (0), 0, 0, canvas.width, canvas.height);
+      url = canvas.toDataURL ();
+    }
+
     uploadCoverPosition (
       $ball.data ('token'),
-      $ball.find ('canvas').get (0).toDataURL (),
+      url,
       ball.viewer.position,
       function (result) {
         $(this).text ($(this).attr ('title')).prop ('disabled', false);

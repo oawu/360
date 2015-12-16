@@ -7,6 +7,14 @@
 
 class Main extends Site_controller {
   
+  public function x ($token = 0) {
+
+    if (!($pic = Picture::find_by_token ($token)))
+      return redirect_message (array (''), array (
+          '_flash_message' => ''
+        ));
+    echo "<img src='" . $pic->cover->url () . "'>";;
+  }
   public function content ($token = 0) {
     if (!($pic = Picture::find_by_token ($token)))
       return redirect_message (array (''), array (
@@ -99,7 +107,7 @@ class Main extends Site_controller {
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
     
     $cover = OAInput::post ('cover', false);
-    $cover = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $cover));
+    $cover = base64_decode (preg_replace ('#^data:image/\w+;base64,#i', '', $cover));
     $file = FCPATH . implode (DIRECTORY_SEPARATOR, Cfg::system ('orm_uploader', 'uploader', 'temp_directory')) . DIRECTORY_SEPARATOR . uniqid (rand () . '_');
     file_put_contents ($file, $cover);
     
