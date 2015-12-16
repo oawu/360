@@ -62,57 +62,57 @@ $shadow: 0 0 2px 1px rgba(255, 255, 255, .15), 0 0 1px rgba(255, 255, 255, .5);
       }
     }
   }
-  label.pic {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    cursor: pointer;
-    padding: 0;
-    font-size: 0;
-    @include transition(all .3s);
+  // label.pic {
+  //   position: relative;
+  //   display: inline-block;
+  //   width: 100%;
+  //   cursor: pointer;
+  //   padding: 0;
+  //   font-size: 0;
+  //   @include transition(all .3s);
 
-    &:before {
-      content: '選擇檔案';
-      display: inline-block;
-      padding: 5px;
-      background-color: rgba(200, 200, 200, 1);
-      font-size: 14px;
-      width: 70px;
-      height: 30px;
-      @include border-top-left-radius(4px);
-      @include border-bottom-left-radius(4px);
-    }
-    &:after {
-      content: attr(data-path);
-      display: inline-block;
-      font-size: 14px;
-      padding: 5px;
-      width: calc(100% - 70px);
-      height: 30px;
-      @include overflow-docx3();
-      color: rgba(230, 230, 230, .5);
-      border: 1px solid rgba(255, 255, 255, .5);
-      border-left: 0;
-      @include border-top-right-radius(4px);
-      @include border-bottom-right-radius(4px);
-    }
-    &:hover {
-      color: rgba(0, 0, 0, 1);
-      &:after {
-        color: rgba(230, 230, 230, .5);
-      }
-    }
-    input {
-      position: absolute;
-      left: 0;
-      top: 0;
-      display: inline-block;
-      width: 1px;
-      height: 1px;
+  //   &:before {
+  //     content: '選擇檔案';
+  //     display: inline-block;
+  //     padding: 5px;
+  //     background-color: rgba(200, 200, 200, 1);
+  //     font-size: 14px;
+  //     width: 70px;
+  //     height: 30px;
+  //     @include border-top-left-radius(4px);
+  //     @include border-bottom-left-radius(4px);
+  //   }
+  //   &:after {
+  //     content: attr(data-path);
+  //     display: inline-block;
+  //     font-size: 14px;
+  //     padding: 5px;
+  //     width: calc(100% - 70px);
+  //     height: 30px;
+  //     @include overflow-docx3();
+  //     color: rgba(230, 230, 230, .5);
+  //     border: 1px solid rgba(255, 255, 255, .5);
+  //     border-left: 0;
+  //     @include border-top-right-radius(4px);
+  //     @include border-bottom-right-radius(4px);
+  //   }
+  //   &:hover {
+  //     color: rgba(0, 0, 0, 1);
+  //     &:after {
+  //       color: rgba(230, 230, 230, .5);
+  //     }
+  //   }
+  //   input {
+  //     position: absolute;
+  //     left: 0;
+  //     top: 0;
+  //     display: inline-block;
+  //     width: 1px;
+  //     height: 1px;
 
-      @include opacity(0);
-    }
-  }
+  //     @include opacity(0);
+  //   }
+  // }
   .btns {
     margin-top: 10px;
     padding: 10px 0;
@@ -130,5 +130,54 @@ $shadow: 0 0 2px 1px rgba(255, 255, 255, .15), 0 0 1px rgba(255, 255, 255, .5);
         margin-right: 10px;
       }
     }
+  }
+}
+#drop {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0;
+  @include transition(all .3s);
+  &.h {
+    &:before {
+      background-color: rgba(255, 255, 255, 1);
+    }
+    &:after {
+      border-color: rgba(255, 255, 255, 1);
+    }
+  }
+  &:before {
+    content: '選擇檔案';
+    display: inline-block;
+    padding: 5px;
+    background-color: rgba(200, 200, 200, 1);
+    font-size: 14px;
+    width: 70px;
+    height: 30px;
+    @include border-top-left-radius(4px);
+    @include border-bottom-left-radius(4px);
+    @include transition(all .3s);
+  }
+  &:after {
+    content: attr(data-path);
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px;
+    width: calc(100% - 70px);
+    height: 30px;
+    @include overflow-docx3();
+    color: rgba(230, 230, 230, .5);
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-left: 0;
+    @include border-top-right-radius(4px);
+    @include border-bottom-right-radius(4px);
+    @include transition(all .3s);
+  }
+  input {
+    position: absolute;
+
+    @include opacity(0);
   }
 }

@@ -3,7 +3,8 @@
   <label for='picture' class='img' data-loading='圖片讀取中..'>
     <img id='img' src='' />
   </label>
-  <label for='picture' class='pic'>
+
+  <label for='picture' id='drop'>
     <input type='file' name='picture' id='picture' />
   </label>
   <div class='btns'>
