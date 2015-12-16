@@ -5,7 +5,9 @@
 
 @import "_oa";
 
-@media screen and (min-width: 0) and (max-width: #{470px - 1px}) {
+$shadow: 0 0 2px 1px rgba(255, 255, 255, .15), 0 0 1px rgba(255, 255, 255, .5);
+
+@media screen and (min-width: 0) and (max-width: #{570px - 1px}) {
   #container {
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -17,10 +19,10 @@
   margin-top: 60px;
   display: inline-block;
   width: 100%;
-  max-width: 450px;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, .2);
+  max-width: 550px;
+  padding: 30px;
   text-align: left;
+  @include box-shadow($shadow);
 
   label.img {
     position: relative;
@@ -116,7 +118,9 @@
     padding: 10px 0;
     padding-bottom: 0;
     text-align: right;
-    border-top: 1px solid rgba(255, 255, 255, .5);
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, .2);
     @include clearfix();
 
     button {

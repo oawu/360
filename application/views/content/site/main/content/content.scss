@@ -5,6 +5,8 @@
 
 @import "_oa";
 
+$shadow: 0 0 2px 1px rgba(255, 255, 255, .15), 0 0 1px rgba(255, 255, 255, .5);
+
 html {
   body {
     height: 100% !important;
@@ -21,14 +23,26 @@ html {
 #prev, #next {
   @include a(0, false, rgba(255, 255, 255, .5), rgba(255, 255, 255, 1));
   position: absolute;
-  bottom: 10px;
+  
+  @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+    top: calc((100% - 50px) / 2);
+    width: 50px;
+    height: 50px;
+    @include border-radius(50%);
+    @include opacity(.8);
+  }
+  @media screen and (min-width: $mediaMobileWidth) {
+    bottom: 10px;
+    width: 100px;
+    height: 50px;
+  }
+
   display: inline-block;
-  width: 100px;
-  height: 50px;
   line-height: 48px;
   font-size: 30px;
   color: rgba(255, 255, 255, .5);
-  border: 1px solid rgba(255, 255, 255, .5);
+  // border: 1px solid rgba(255, 255, 255, .5);
+  @include box-shadow($shadow);
   background-color: rgba(0, 0, 0, .7);
   @include border-radius(3px);
   
@@ -38,10 +52,28 @@ html {
 }
 #prev {
   left: 10px;
+  @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+    padding-right: 6px;
+  }
 }
 #next {
   right: 10px;
+  @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+    padding-left: 6px;
+  }
 }
+
+#border {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px dashed rgba(255, 255, 255, 1);
+  @include border-radius(50%);
+}
+
 #move {
   $h: 140px;
   $w: 250px;
@@ -53,12 +85,10 @@ html {
   height: $h;
   padding: 10px 20px;
   padding-top: 20px;
-  // border: 1px solid rgba(255, 255, 255, .3);
   font-size: 20px;
   background-color: rgba(0, 0, 0, .7);
   color: rgba(255, 255, 255, .75);
   @include border-radius(5px);
-  // @include box-shadow(0 0 10px 1px rgba(0, 0, 0, 1));
 
   &:before {
     display: inline-block;
@@ -77,38 +107,24 @@ html {
     100% { @include opacity(0); }
   }
 }
-#share {
-  @include button('black');
-  font-weight: normal;
-  position: absolute;
-  top: 50px;
-  right: 10px;
-  display: inline-block;
-  font-size: 25px;
-  padding: 8px 15px;
-  color: rgba(255, 255, 255, .5);
-  border: 1px solid rgba(255, 255, 255, .5);
-  background-color: rgba(0, 0, 0, .7);
-  cursor: pointer;
-  @include border-radius(3px);
-  
-  &:hover {
-    border-color: rgba(255, 255, 255, 1);
-  }
-}
-
-label[for='rotated'] {
+label[for='visibled'], label[for='rotated'], #cover, #views, #share {
   @include switch(true, 'black');
   font-weight: normal;
   position: absolute;
-  top: 100px;
-  left: 10px;
-  border: 1px solid rgba(255, 255, 255, .5);
+  top: 80px;
+  right: 10px;
   padding: 0 5px;
   background-color: rgba(0, 0, 0, .7);
-  @include border-radius(3px);
   cursor: pointer;
   color: rgba(255, 255, 255, .5);
+  @include border-radius(3px);
+  @include transition(all .3s);
+  @include box-shadow($shadow);
+  
+  &:hover {
+    border-color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 1);
+  }
   input {
     &[disabled] {
       ~ div {
@@ -120,58 +136,43 @@ label[for='rotated'] {
     display: inline-block;
   }
 }
-#cover {
-  @include button('black');
-  font-weight: normal;
-  position: absolute;
-  top: 150px;
-  left: 10px;
+label[for='rotated'] {
+  top: 130px;
+}
+#cover, #share {
+  top: 180px;
   display: inline-block;
   font-size: 25px;
   padding: 5px 10px;
-  color: rgba(255, 255, 255, .5);
-  border: 1px solid rgba(255, 255, 255, .5);
-  background-color: rgba(0, 0, 0, .7);
-  cursor: pointer;
-  @include border-radius(3px);
-  
-  &:hover {
-    border-color: rgba(255, 255, 255, 1);
-  }
+  border: 0;
+  @include box-shadow($shadow);
+  @include transition(all .3s);
 }
-#border {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  border: 1px dashed rgba(255, 255, 255, 1);
-  @include border-radius(50%);
-}
-
-label[for='visibled'] {
-  @include switch(true, 'black');
-  font-weight: normal;
-  position: absolute;
+#views {
   top: 50px;
-  left: 10px;
-  border: 1px solid rgba(255, 255, 255, .5);
-  padding: 0 5px;
-  background-color: rgba(0, 0, 0, .7);
-  @include border-radius(3px);
-  cursor: pointer;
-  color: rgba(255, 255, 255, .5);
-  input {
-    &[disabled] {
-      ~ div {
-        cursor: not-allowed;
-      } 
-    }
-  }
-  > div {
+  color: rgba(255, 255, 255, .8);
+  padding: 2px 8px;
+  z-index: 10;
+  @include border-radius(13px);
+  font-size: 16px;
+  cursor: auto;
+
+  &:before {
     display: inline-block;
+    margin-right: 3px;
+    font-size: 18px;
   }
+  &:hover {
+    border-color: rgba(255, 255, 255, .5);
+    color: rgba(255, 255, 255, .8);
+  }
+}
+#share {
+  top: 50px;
+  right: auto;
+  left: 10px;
+  padding: 8px 15px;
+  font-size: 25px;
 }
 #warning {
   $h: 140px;
@@ -183,12 +184,10 @@ label[for='visibled'] {
   width: $w;
   height: $h;
   line-height: 25px;
-  // border: 1px solid rgba(255, 255, 255, .3);
   font-size: 20px;
   background-color: rgba(0, 0, 0, .7);
   color: rgba(255, 255, 255, .75);
   @include border-radius(5px);
-  // @include box-shadow(0 0 10px 1px rgba(0, 0, 0, 1));
 
   &:before {
     display: inline-block;

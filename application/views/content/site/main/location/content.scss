@@ -43,12 +43,10 @@
   width: $w;
   height: $h;
   line-height: 25px;
-  // border: 1px solid rgba(255, 255, 255, .3);
   font-size: 20px;
   background-color: rgba(0, 0, 0, .7);
   color: rgba(255, 255, 255, .75);
   @include border-radius(5px);
-  // @include box-shadow(0 0 10px 1px rgba(0, 0, 0, 1));
 
   &:before {
     display: inline-block;

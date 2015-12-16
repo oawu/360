@@ -5,6 +5,8 @@
 
 @import "_oa";
 
+$shadow: 0 0 2px 1px rgba(255, 255, 255, .2), 0 0 1px rgba(255, 255, 255, .6);
+
 @media screen and (min-width: 0) and (max-width: #{450px - 1px}) {
   #container {
     padding-left: 10px !important;
@@ -17,9 +19,9 @@
   width: 430px;
   text-align: center;
   padding: 20px 30px;
-  border: 1px solid rgba(255, 255, 255, .5);
   color: rgba(255, 255, 255, 1);
   @include border-radius(2px);
+  @include box-shadow($shadow);
   
   h2 {
     margin-top: 0;
