@@ -112,7 +112,7 @@ label[for='visibled'], label[for='rotated'], #cover, #views, #share {
   font-weight: normal;
   position: absolute;
   top: 80px;
-  right: 10px;
+  left: 10px;
   padding: 0 5px;
   background-color: rgba(0, 0, 0, .7);
   cursor: pointer;
@@ -169,8 +169,8 @@ label[for='rotated'] {
 }
 #share {
   top: 50px;
-  right: auto;
-  left: 10px;
+  left: auto;
+  right: 10px;
   padding: 8px 15px;
   font-size: 25px;
 }

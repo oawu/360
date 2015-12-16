@@ -59,8 +59,8 @@ label[for='visibled'], label[for='rotated'], #cover, #views {
   @include switch(true, 'black');
   font-weight: normal;
   position: absolute;
-  top: 80px;
-  right: 10px;
+  top: 50px;
+  left: 10px;
   padding: 0 5px;
   background-color: rgba(0, 0, 0, .7);
   cursor: pointer;
@@ -85,10 +85,10 @@ label[for='visibled'], label[for='rotated'], #cover, #views {
   }
 }
 label[for='rotated'] {
-  top: 130px;
+  top: 100px;
 }
 #cover {
-  top: 180px;
+  top: 150px;
   display: inline-block;
   font-size: 25px;
   padding: 5px 10px;
@@ -98,6 +98,8 @@ label[for='rotated'] {
 }
 #views {
   top: 50px;
+  left: auto;
+  right: 10px;
   color: rgba(255, 255, 255, .8);
   padding: 2px 8px;
   z-index: 10;
