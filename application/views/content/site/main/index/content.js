@@ -36,7 +36,7 @@ $(function () {
       });
   });
 
-  $('.icon-mail-forward').click (function () {
+  $('.icon-share2').click (function () {
     window.open ('https://www.facebook.com/sharer/sharer.php?u=' + $(this).data ('url'), '分享', 'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420,top=100,left=' + (window.screen ? Math.round(screen.width / 2 - 275) : 100));
   });
   $('.icon-link').click (function () {
