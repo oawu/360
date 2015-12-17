@@ -134,7 +134,7 @@ class Modify extends Site_controller {
       return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => $pic->is_rotated ? '旋轉' : '不旋轉'));
   }
   public function destroy ($token = 0) {
-    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, name'))))
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, name, cover'))))
       return redirect_message (array (''), array (
           '_flash_message' => '當案不存在，或者您的權限不夠喔！'
         ));
