@@ -19,13 +19,14 @@ class Github extends Site_controller {
   
   }
   public function location () {
-    if (!(($token = OAInput::get ('token')) && ($pic = Picture::find_by_token ($token, array ('select' => 'latitude, longitude')))))
+    if (!(($token = OAInput::get ('token')) && ($pic = Picture::find_by_token ($token, array ('select' => 'id, cover, latitude, longitude')))))
       return $this->output_json (array ('status' => false, 'msg' => '當案不存在，或者您的權限不夠喔！'));
 
     return $this->output_json (array ('status' => true, 'picture' => array (
-        'latitude' => $pic->latitude,
-        'longitude' => $pic->longitude,
-        'zoom' => 16
+        'latitude' => $pic->location () ? $pic->latitude : 25.04, 
+        'longitude' => $pic->location () ? $pic->longitude : 121.55,
+        'zoom' => $pic->location () ? 16 : 12,
+        'cover' => $pic->cover->url ('600x600c')
       )));
   }
   public function picture () {
