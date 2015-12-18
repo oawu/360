@@ -57,3 +57,58 @@
     padding: 5px;
   }
 }
+
+.info_bubble {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  text-align: left;
+  font-size: 16px;
+  color: rgba(50, 50, 50, 0.7);
+  padding: 5px;
+
+  .img {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    @include border-radius(50%);
+
+    &:hover {
+      .title {
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+    img {
+      width: 100%;
+    }
+    .title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+
+      padding-left: 5px;
+      padding-bottom: 3px;
+      padding-top: 5px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: bold;
+
+      @include overflow-docx3();
+      @include transition(all .3s);
+      @include text-shadow(1px 1px 1px rgba(53, 53, 53, 0.5));
+      @include background-image(
+                    linear-gradient(
+                        135deg,
+                        rgba(255, 255, 255, .4) 5%,
+                        rgba(255, 255, 255, 0) 55%,
+                        rgba(0, 0, 0, 0) 55%,
+                        rgba(0, 0, 0, .5) 100%
+                    ));
+    }
+  }
+}

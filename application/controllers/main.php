@@ -88,10 +88,11 @@ class Main extends Site_controller {
   public function location ($token = 0) {
     $this->set_frame_path ('frame', 'pure');
 
-    if (!($pic = Picture::find_by_token ($token)))
+    if (!($pic = Picture::find_by_token ($token, array ('select' => 'id, cover, latitude, longitude'))))
       return $this->load_view (array (), false);
     else
       return $this->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
+                  ->add_js (base_url ('resource', 'javascript', 'infobubble-v3', 'infobubble-compiled.js'))
                   ->load_view (array (
                       'pic' => $pic
                     ), false);
