@@ -55,7 +55,7 @@ class Tinypng {
 
     if (!self::isDatetime ($data['updated_at']))
       $data['updated_at'] = date ('Y-m-d H:i:s');
-    else if (DateTime::createFromFormat ('Y-m-d H:i:s', $data['updated_at'])->format ('Y-m-d') < date ('Y-m-d'))
+    else if (DateTime::createFromFormat ('Y-m-d H:i:s', $data['updated_at'])->format ('Y-m') < date ('Y-m'))
       $data = array (
           'updated_at' => date ('Y-m-d H:i:s'),
           'keys' => array_combine (array_keys ($data['keys']), array_map (function () { return 500; }, $data['keys']))
