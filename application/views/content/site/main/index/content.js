@@ -74,4 +74,17 @@ $(function () {
     }
     window.getSelection ().removeAllRanges ();
   });
+
+  var $nav = $('nav');
+  $(window).scroll (function () {
+    var t = $(this).scrollTop ();
+    var l = $(this).get (0).l ? $(this).get (0).l : 0;
+    if (t < 51 || t < l) {
+      if (!$nav.hasClass ('s')) $nav.addClass('s');
+    } else {
+      if ($nav.hasClass ('s')) $nav.removeClass ('s');
+    }
+    $(this).get (0).l = t;
+  }).scroll ();
+
 });
