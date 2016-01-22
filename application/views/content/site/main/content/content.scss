@@ -170,7 +170,7 @@ label[for='rotated'] {
     color: rgba(255, 255, 255, .8);
   }
 }
-#share {
+#share, #download {
   top: 50px;
   left: auto;
   right: 10px;
@@ -179,10 +179,6 @@ label[for='rotated'] {
 }
 #download {
   top: 100px;
-  left: auto;
-  right: 10px;
-  padding: 8px 15px;
-  font-size: 25px;
 }
 #warning {
   $h: 140px;
