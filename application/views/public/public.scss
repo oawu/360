@@ -63,29 +63,11 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
   display: none;
 }
 
-.icon-move:before {
-  content: "\e900";
-}
-.icon-eye2:before {
-  content: "\e903";
-}
-.icon-lock:before {
-  content: "\f06a";
-}
-.icon-warning:before {
-  content: "\e902";
-}
-.icon-info-outline:before {
-  content: "\e901";
-}
 .icon-screen_rotation:before {
   content: "\e1c1";
 }
 .icon-rotate_90_degrees_ccw:before {
   content: "\e418";
-}
-.icon-3d_rotation:before {
-  content: "\e84d";
 }
 .icon-link-external:before {
   content: "\e605";
@@ -123,10 +105,30 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-arrow-right2:before {
   content: "\e804";
 }
+.icon-3d_rotation:before {
+  content: "\e84d";
+}
+.icon-move:before {
+  content: "\e900";
+}
+.icon-info-outline:before {
+  content: "\e901";
+}
+.icon-warning:before {
+  content: "\e902";
+}
+.icon-eye2:before {
+  content: "\e903";
+}
 .icon-pencil2:before {
   content: "\e906";
 }
 .icon-bin:before {
   content: "\e9ac";
 }
-
+.icon-lock:before {
+  content: "\f06a";
+}
+.icon-download:before {
+  content: "\e904";
+}

@@ -30,17 +30,17 @@ class Picture extends OaModel {
   
   public function next ($is_admin = false) {
     if ($this->next !== '') return $this->next;
-
-    if (!($next = Picture::find ('one', array ('select' => 'token', 'order' => 'id ASC', 'conditions' => $is_admin ? array ('id != ? AND id >= ?', $this->id, $this->id) : array ('id != ? AND id >= ? AND is_visibled = ?', $this->id, $this->id, 1)))))
-      $next = Picture::find ('one', array ('select' => 'token', 'order' => 'id ASC', 'conditions' => $is_admin ? array ('id != ?', $this->id) : array ('id != ? AND is_visibled = ?', $this->id, 1)));
+    
+    if (!($next = Picture::find ('one', array ('select' => 'token', 'order' => 'id DESC', 'conditions' => $is_admin ? array ('id != ? AND id <= ?', $this->id, $this->id) : array ('id != ? AND id <= ? AND is_visibled = ?', $this->id, $this->id, 1)))))
+      $next = Picture::find ('one', array ('select' => 'token', 'order' => 'id DESC', 'conditions' => $is_admin ? array ('id != ?', $this->id) : array ('id != ? AND is_visibled = ?', $this->id, 1)));
 
     return $this->next = $next;
   }
   public function prev ($is_admin = false) {
     if ($this->prev !== '') return $this->prev;
-    
-    if (!($prev = Picture::find ('one', array ('select' => 'token', 'order' => 'id DESC', 'conditions' => $is_admin ? array ('id != ? AND id <= ?', $this->id, $this->id) : array ('id != ? AND id <= ? AND is_visibled = ?', $this->id, $this->id, 1)))))
-      $prev = Picture::find ('one', array ('select' => 'token', 'order' => 'id DESC', 'conditions' => $is_admin ? array ('id != ?', $this->id) : array ('id != ? AND is_visibled = ?', $this->id, 1)));
+
+    if (!($prev = Picture::find ('one', array ('select' => 'token', 'order' => 'id ASC', 'conditions' => $is_admin ? array ('id != ? AND id >= ?', $this->id, $this->id) : array ('id != ? AND id >= ? AND is_visibled = ?', $this->id, $this->id, 1)))))
+      $prev = Picture::find ('one', array ('select' => 'token', 'order' => 'id ASC', 'conditions' => $is_admin ? array ('id != ?', $this->id) : array ('id != ? AND is_visibled = ?', $this->id, 1)));
 
     return $this->prev = $prev;
   }

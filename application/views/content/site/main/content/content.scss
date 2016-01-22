@@ -107,7 +107,7 @@ html {
     100% { @include opacity(0); }
   }
 }
-label[for='visibled'], label[for='rotated'], #cover, #views, #share {
+label[for='visibled'], label[for='rotated'], #cover, #views, #share, #download {
   @include switch(true, 'black');
   font-weight: normal;
   position: absolute;
@@ -139,7 +139,7 @@ label[for='visibled'], label[for='rotated'], #cover, #views, #share {
 label[for='rotated'] {
   top: 130px;
 }
-#cover, #share {
+#cover, #share, #download {
   top: 180px;
   display: inline-block;
   font-size: 25px;
@@ -172,6 +172,13 @@ label[for='rotated'] {
 }
 #share {
   top: 50px;
+  left: auto;
+  right: 10px;
+  padding: 8px 15px;
+  font-size: 25px;
+}
+#download {
+  top: 100px;
   left: auto;
   right: 10px;
   padding: 8px 15px;
