@@ -1,4 +1,4 @@
-<nav>
+<nav class='s'>
   <?php 
   if ($back_url) { ?>
     <a href='<?php echo $back_url;?>' class='back icon-arrow-left'></a>

@@ -85,6 +85,6 @@ $(function () {
       if ($nav.hasClass ('s')) $nav.removeClass ('s');
     }
     $(this).get (0).l = t;
-  }).scroll ();
+  });
 
 });
