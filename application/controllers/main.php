@@ -21,6 +21,16 @@ class Main extends Site_controller {
           '_flash_message' => ''
         ));
 
+    $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
+         ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
+         ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
+         ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
+         ->add_meta (array ('property' => 'og:type', 'content' => 'article'))
+         ->add_meta (array ('property' => 'article:author', 'content' => 'https://www.facebook.com/comdan66'))
+         ->add_meta (array ('property' => 'article:publisher', 'content' => 'https://www.facebook.com/comdan66'))
+         ->add_meta (array ('property' => 'article:modified_time', 'content' => $pic->updated_at->format ('c')))
+         ->add_meta (array ('property' => 'article:published_time', 'content' => $pic->created_at->format ('c')));
+
     $tags = array (
         '1200x630c' => 'larger',
         '600x315c' => 'small',
@@ -39,11 +49,13 @@ class Main extends Site_controller {
              ->add_meta (array ('property' => 'og:image:height', 'tag' => $tags[$key], 'content' => $size[1]));
     }
 
-    return $this->add_js (base_url ('resource', 'javascript', 'thetaview', 'async.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'three.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'OrbitControls.js'))
-                ->add_js (base_url ('resource', 'javascript', 'thetaview', 'theta-viewer.js'))
-                ->load_view (array (
+    if ($pic->prev ())
+      $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($pic->prev ()->token)));
+
+    if ($pic->next ())
+      $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($pic->next ()->token)));
+
+    return $this->load_view (array (
                     'footer' => false,
                     'back' => true,
                     'pic' => $pic
