@@ -7,14 +7,14 @@
 
 class Main extends Site_controller {
   
-  public function x ($token = 0) {
+  // public function x ($token = 0) {
 
-    if (!($pic = Picture::find_by_token ($token)))
-      return redirect_message (array (''), array (
-          '_flash_message' => ''
-        ));
-    echo "<img src='" . $pic->cover->url () . "'>";;
-  }
+  //   if (!($pic = Picture::find_by_token ($token)))
+  //     return redirect_message (array (''), array (
+  //         '_flash_message' => ''
+  //       ));
+  //   echo "<img src='" . $pic->cover->url () . "'>";;
+  // }
   public function content ($token = 0) {
     if (!($pic = Picture::find_by_token ($token)))
       return redirect_message (array (''), array (
@@ -33,10 +33,10 @@ class Main extends Site_controller {
 
     $tags = array (
         '1200x630c' => 'larger',
-        '600x315c' => 'small',
-        '600x314c' => 'non-stoty',
-        '600x600c' => 'story',
-        '200x200c' => 'mini',
+        // '600x315c' => 'small',
+        // '600x314c' => 'non-stoty',
+        // '600x600c' => 'story',
+        // '200x200c' => 'mini',
       );
     foreach ($pic->cover->getVirtualVersions () as $key => $version) {
       $size = count (array_filter ($size = preg_split ('/[xX]/', preg_replace ('/[^\dx]/', '', '1200x630c')), function ($t) { return is_numeric ($t); })) == 2 ? $size : array ();
