@@ -26,7 +26,7 @@ class Github extends Site_controller {
         'latitude' => $pic->location () ? $pic->latitude : 25.04, 
         'longitude' => $pic->location () ? $pic->longitude : 121.55,
         'zoom' => $pic->location () ? 16 : 12,
-        'cover' => $pic->cover->url ('600x600c')
+        'cover' => $pic->cover->url ('640x640c')
       )));
   }
   public function picture () {
