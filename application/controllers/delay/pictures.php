@@ -26,7 +26,7 @@ class Pictures extends Delay_controller {
       $picture->cover->save_as ($key, $version);
 
     if (ENVIRONMENT == 'production')
-      $this->_compressor ($picture, array ('640x640c'), 'cover', 'is_compressor');
+      echo $this->_compressor ($picture, array ('640x640c'), 'cover', 'is_compressor');
   }
 
   private function _compressor ($picture, $sizes = array (), $column, $flog_column, $limit = 10) {
