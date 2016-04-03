@@ -7,7 +7,7 @@
 class Pictures extends Delay_controller {
 
   public function update_name_virtual_versions_color () {
-    if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, name, color_r, color_g, color_b, is_compressor')))))
+    if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, name, color_r, color_g, color_b, is_name_compressor')))))
       return ;
 
     $picture->update_color ();
@@ -16,28 +16,23 @@ class Pictures extends Delay_controller {
       $picture->name->save_as ($key, $version);
 
     if (ENVIRONMENT == 'production')
-      $this->_compressor ($picture, array ('4096w'), 'name', 'is_compressor');
+      $this->_compressor ($picture, array ('4096w'), 'name', 'is_name_compressor');
   }
   public function update_cover_virtual_versions_color () {
-    if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, cover, is_compressor')))))
+    if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, cover, is_cover_compressor')))))
       return ;
 
     foreach ($picture->cover->getVirtualVersions () as $key => $version)
       $picture->cover->save_as ($key, $version);
 
     if (ENVIRONMENT == 'production')
-      echo $this->_compressor ($picture, array ('640x640c'), 'cover', 'is_compressor');
+      $this->_compressor ($picture, array ('640x640c'), 'cover', 'is_cover_compressor');
   }
 
   private function _compressor ($picture, $sizes = array (), $column, $flog_column, $limit = 10) {
     require_once ('vendor/autoload.php');
-echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($picture->$column);
-exit ();
+
     foreach ($sizes as $size) {
-      echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-      var_dump (implode (DIRECTORY_SEPARATOR, $picture->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column);
-      exit ();
       @S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $picture->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column);
 
       if (!file_exists ($path)) return 'Download Error!';
@@ -48,8 +43,7 @@ exit ();
         \Tinify\validate ();
 
         if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) return 'Tinify toFile Error!';
-      } catch (Exception $e) { echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-      exit ();return $e->toMessage () . 'Tinify try catch Error!'; }
+      } catch (Exception $e) { return 'Tinify try catch Error!'; }
 
       $s3_path = implode (DIRECTORY_SEPARATOR, array_merge ($picture->$column->getBaseDirectory (), $picture->$column->getSavePath ())) . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column;
       $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
