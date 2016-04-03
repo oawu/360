@@ -33,6 +33,9 @@ class Pictures extends Delay_controller {
     require_once ('vendor/autoload.php');
 
     foreach ($sizes as $size) {
+      echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+      var_dump (implode (DIRECTORY_SEPARATOR, $picture->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column);
+      exit ();
       @S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $picture->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column);
 
       if (!file_exists ($path)) return 'Download Error!';
@@ -44,7 +47,6 @@ class Pictures extends Delay_controller {
 
         if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) return 'Tinify toFile Error!';
       } catch (Exception $e) { echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-      var_dump ($e);
       exit ();return $e->toMessage () . 'Tinify try catch Error!'; }
 
       $s3_path = implode (DIRECTORY_SEPARATOR, array_merge ($picture->$column->getBaseDirectory (), $picture->$column->getSavePath ())) . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column;
