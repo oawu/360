@@ -31,10 +31,12 @@ class Pictures extends Delay_controller {
 
   private function _compressor ($picture, $sizes = array (), $column, $flog_column, $limit = 10) {
     require_once ('vendor/autoload.php');
-
+echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+var_dump ($picture->$column);
+exit ();
     foreach ($sizes as $size) {
       echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-      var_dump (implode (DIRECTORY_SEPARATOR, $picture->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . (string)$picture->$column);
+      var_dump (implode (DIRECTORY_SEPARATOR, $picture->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column);
       exit ();
       @S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $picture->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column);
 
