@@ -43,7 +43,9 @@ class Pictures extends Delay_controller {
         \Tinify\validate ();
 
         if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) return 'Tinify toFile Error!';
-      } catch (Exception $e) { return $e->toMessage () . 'Tinify try catch Error!'; }
+      } catch (Exception $e) { echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+      var_dump ($e);
+      exit ();return $e->toMessage () . 'Tinify try catch Error!'; }
 
       $s3_path = implode (DIRECTORY_SEPARATOR, array_merge ($picture->$column->getBaseDirectory (), $picture->$column->getSavePath ())) . DIRECTORY_SEPARATOR . $size . '_' . $picture->$column;
       $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
