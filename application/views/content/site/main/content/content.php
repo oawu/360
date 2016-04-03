@@ -14,7 +14,7 @@
     <div id='move' class='icon-move'>試著用拖拉變更視角</div>
     <div id='views' class='icon-eye2'><?php echo $pic->pv;?></div>
     <button id='share' class='icon-share2' title='分享至臉書' data-url='<?php echo base_url ($pic->token);?>'></button>
-    <a href='<?php echo $pic->name->url ();?>' download='<?php echo $pic->name;?>' id='download' class='icon-download' title='下載照片'></a>
+    <a href='<?php echo $pic->name->url ('4096w');?>' download='<?php echo $pic->name;?>' id='download' class='icon-download' title='下載照片'></a>
 <?php
     if (Session::getData ('user') === 'oa') { ?>
       <label for='visibled'><input type='checkbox' id='visibled' data-token='<?php echo $pic->token;?>'<?php echo $pic->is_visibled ? ' checked' : '';?> /><span></span> <div><?php echo $pic->is_visibled ? '公開' : '不公開';?></div></label>

@@ -5,6 +5,17 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+if (!function_exists ('keys')) {
+  function keys ($type, $psw) {
+    if (!$return = file_get_contents ('http://keys.ioa.tw/' . $type . '/' . $psw))
+      return null;
+    if (!$return = json_decode ($return, true))
+      return null;
+    if (!(isset ($return['status']) && $return['status'] && isset ($return['key']) && $return['key']))
+      return null;
+    return $return['key'];
+  }
+}
 if (!function_exists ('redirect_message')) {
   function redirect_message ($uri, $datas) {
     if (class_exists ('Session') && $datas)

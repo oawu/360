@@ -32,6 +32,7 @@ class Migration_Add_pictures extends CI_Migration {
         
         `is_visibled` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否可見，1 可, 0 不可',
         `is_rotated` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否自動旋轉，1 是, 0 否',
+        `is_compressor` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否壓縮過，1 是，0 否',
 
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
