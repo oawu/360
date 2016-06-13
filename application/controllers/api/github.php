@@ -13,9 +13,9 @@ class Github extends Site_controller {
 
     header ('Content-type: text/html');
     if (ENVIRONMENT == 'production')
-      header ('Access-Control-Allow-Origin: ' . ($this->url = 'http://comdan66.github.io'));
+      header ('Access-Control-Allow-Origin: ' . ($this->url = 'http://works.ioa.tw'));
     else
-      header ('Access-Control-Allow-Origin: ' . ($this->url = 'http://dev.comdan66.github.io'));
+      header ('Access-Control-Allow-Origin: ' . ($this->url = 'http://dev.works.ioa.tw'));
   
   }
   public function location () {
