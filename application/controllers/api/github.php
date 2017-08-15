@@ -13,7 +13,7 @@ class Github extends Site_controller {
 
     header ('Content-type: text/html');
     if (ENVIRONMENT == 'production')
-      header ('Access-Control-Allow-Origin: ' . ($this->url = 'http://works.ioa.tw'));
+      header ('Access-Control-Allow-Origin: ' . ($this->url = 'https://works.ioa.tw'));
     else
       header ('Access-Control-Allow-Origin: ' . ($this->url = 'http://dev.works.ioa.tw'));
   
